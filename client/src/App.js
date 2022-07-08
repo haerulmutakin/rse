@@ -4,7 +4,7 @@ import ChatRoom from "./components/ChatRoom";
 function App() {
   const [showRoom, setShowRoom] = useState(true);
   const [username, setUsername] = useState('takin');
-  const [room, setRoom] = useState('Banu Saleh');
+  const [room, setRoom] = useState('Pencari Lowongan IT');
 
   const handleJoinRoom = () => {
       if(username !== '' && room !== '') {

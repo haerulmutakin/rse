@@ -1,8 +1,9 @@
 import { useState } from "react";
 
 const ChatRoom = ({username, room}) => {
-    const [message, setMessage] = useState();
-    const fakeMessage = [
+    const date = new Date();
+    const [message, setMessage] = useState('');
+    const [fakeMessage, setFakeMessage] = useState([
         {
             username: 'takin',
             time: '12:00',
@@ -23,10 +24,18 @@ const ChatRoom = ({username, room}) => {
             time: '12:00',
             body: 'Maaf gk bisa mba, jumat siang sampai sore ada meeting mingguan sm sprint planning'
         },
-    ]
+    ])
 
     const handleSendMessage = () => {
-        console.log(message)
+        if(message !== '') {
+            const body = {
+                username: username,
+                time: `${date.getHours()}:${date.getMinutes()}`,
+                body: message
+            }
+            setFakeMessage((current) => [...current, body]);
+            setMessage('')
+        }
     }
 
     return ( 
@@ -49,7 +58,13 @@ const ChatRoom = ({username, room}) => {
                 <input 
                     type="text"
                     placeholder="Type a message"
-                    onChange={(e) => setMessage(e.target.value)}    
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)} 
+                    onKeyDown={(e) => {
+                        if(e.code === 'Enter') {
+                            handleSendMessage()  
+                        }
+                    }}   
                 />
                 <button onClick={handleSendMessage}>&#9658;</button>
             </div>
