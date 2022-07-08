@@ -1,20 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import io from 'socket.io-client';
 import ChatRoom from "./components/ChatRoom";
 
-function App() {
-  const [showRoom, setShowRoom] = useState(true);
-  const [username, setUsername] = useState('takin');
-  const [room, setRoom] = useState('Pencari Lowongan IT');
+const socket = io.connect('http://localhost:3001')
 
-  const handleJoinRoom = () => {
+function App() {
+  const [showRoom, setShowRoom] = useState(false);
+  const [username, setUsername] = useState('');
+  const [room, setRoom] = useState('');
+
+  
+
+  const handleJoinRoom = async () => {
       if(username !== '' && room !== '') {
+        await socket.emit('jr', room);
         setShowRoom(true);
       }
    }
 
   return (
     <div className="App">
-      {showRoom ? <ChatRoom username={username} room={room} /> : (
+      {showRoom ? <ChatRoom socket={socket} username={username} room={room} /> : (
         <div className="group-form">
           <input 
             type="text" 

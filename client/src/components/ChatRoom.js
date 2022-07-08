@@ -1,42 +1,29 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const ChatRoom = ({username, room}) => {
+const ChatRoom = ({socket, username, room}) => {
     const date = new Date();
     const [message, setMessage] = useState('');
-    const [fakeMessage, setFakeMessage] = useState([
-        {
-            username: 'takin',
-            time: '12:00',
-            body: 'Jadinya interview jam berapa mba?'
-        },
-        {
-            username: 'HR One Code',
-            time: '12:00',
-            body: 'Halo mas, selamat siang'
-        },
-        {
-            username: 'HR One Code',
-            time: '12:00',
-            body: 'Maaf mas Haerul, untuk interview hari ini di pending ya mas, dikarenakan user kami ada rapat mendadak dengan klient'
-        },
-        {
-            username: 'takin',
-            time: '12:00',
-            body: 'Maaf gk bisa mba, jumat siang sampai sore ada meeting mingguan sm sprint planning'
-        },
-    ])
+    const [fakeMessage, setFakeMessage] = useState([])
 
-    const handleSendMessage = () => {
+    const handleSendMessage = async () => {
         if(message !== '') {
             const body = {
+                room: room,
                 username: username,
-                time: `${date.getHours()}:${date.getMinutes()}`,
+                time: `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`,
                 body: message
             }
+            await socket.emit('sm', body)
             setFakeMessage((current) => [...current, body]);
             setMessage('')
         }
     }
+
+    useEffect(() => {
+        socket.on('rm', (data) => {
+            setFakeMessage((current) => [...current, data])
+        })
+    }, [socket]);
 
     return ( 
         <div className="chat-room">
