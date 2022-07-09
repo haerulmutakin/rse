@@ -1,0 +1,17 @@
+$start: 1;
+$end: 4;
+
+@for $i from $start through $end {
+    $size: $i * 10;
+    .user-profile-#{$i} {
+        width: #{$size}px;
+        height: #{$size}px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background-color: #10B9B1;
+        color: #ffffff;
+        margin-right: 5px;
+    }
+}

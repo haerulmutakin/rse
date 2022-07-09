@@ -1,0 +1,47 @@
+.navbar {
+  height: 40px;
+  padding-left: 5px;
+  background-color: #10B9B1;
+  color: #ffffff;
+
+  .brand {
+    font-weight: bold;
+    font-size: 18px;
+  }
+
+  .nav {
+    .nav-item {
+      width: 35px;
+      text-align: center;
+      position: relative;
+      svg {
+        font-size: 18px;
+      }
+      :hover {
+        cursor: pointer;
+      }
+    }
+
+    .badge {
+      background-color: #FC5C65;
+      font-size: 11px;
+      width: 11px;
+      border-radius: 50%;
+      position: absolute;
+      right: 6px;
+      top: -4px;
+    }
+  }
+}
+
+.detail-navbar {
+  height: 40px;
+  padding-left: 5px;
+  font-weight: bold;
+
+  .arrow-back {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
