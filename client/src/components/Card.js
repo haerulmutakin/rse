@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 const Card = ({quote}) => {
     const navigate = useNavigate()
     const handleComment = () => {
-        navigate(`/comments/${quote.id}`)
+        navigate(`/detail/comments/${quote.id}`)
     }
     return ( 
         <div className="card">

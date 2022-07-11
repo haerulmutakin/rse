@@ -13,7 +13,7 @@ const Main = () => {
                 <Router>
                     <Routes>
                         <Route 
-                            path='*' 
+                            path='/*' 
                             element={
                                 <ProtectedRoute>
                                     <ChildRoute />
