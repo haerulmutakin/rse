@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import io from 'socket.io-client';
 import ChatRoom from "./components/ChatRoom";
 
