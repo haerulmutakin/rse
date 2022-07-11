@@ -13,5 +13,5 @@ export const login = (username) => {
 
 export const isAuthenticated = () => {
 	const session = localStorage.getItem('session');
-    return session;
+    return JSON.parse(session);
 };
