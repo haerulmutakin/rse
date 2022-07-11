@@ -17,7 +17,7 @@ const Home = () => {
         },
         {
             id: 3,
-            username: 'fatinzaida',
+            username: 'fatin',
             theme: '#45AAf2',
             quote: 'A room without books is like a body without a soul.'
         },
