@@ -11,6 +11,9 @@ $end: 10;
   .mb-#{$i} {
     margin-bottom: #{$i}px;
   }
+  .mt-#{$i} {
+    margin-top: #{$i}px;
+  }
   .my-#{$i} {
     margin-top: #{$i}px;
     margin-bottom: #{$i}px;

@@ -32,3 +32,15 @@
         }
     }
 }
+
+.quote-meta-like {
+    font-size: 10px;
+
+    .view-comment {
+        color: #bdbdbd;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}

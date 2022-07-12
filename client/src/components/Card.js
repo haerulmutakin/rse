@@ -10,6 +10,17 @@ const Card = ({quote}) => {
     const socket = useContext(SocketContext)
     const user = useContext(UserContext);
 
+    const comments = [
+        {
+            username: 'ummuzaida',
+            body: 'Siap-siap capek kalo udah bisa lari fatin itu kak wkkkk'
+        },
+        {
+            username: 'ummuzaida',
+            body: 'Ipsum lorem sit amet'
+        },
+    ]
+
     const navigate = useNavigate()
     const handleComment = () => {
         navigate(`/detail/comments/${quote.id}`)
@@ -36,6 +47,17 @@ const Card = ({quote}) => {
                 <div onClick={() => handleLike(quote.username)}><FontAwesomeIcon icon={faHeart} /></div>
                 <div onClick={handleComment}><FontAwesomeIcon icon={faComment} /></div>
                 <div><FontAwesomeIcon icon={faExternalLink} /></div>
+            </div>
+            <div className='quote-meta-like mx-8 mt-5'>
+                <div>
+                    Liked by <b>ummuzaida</b> and <b>10 others</b>
+                </div>
+                <div className='mt-5'>
+                    <div className='view-comment' onClick={handleComment}>View all 6 comments</div>
+                    {comments.map((item, index) => (
+                        <div key={index} className="mt-3"><b>{item.username}</b> {item.body}</div>
+                    ))}
+                </div>
             </div>
         </div>
      );
