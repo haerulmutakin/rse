@@ -9,6 +9,7 @@ import UserContext from '../_context/UserContext';
 const Card = ({quote}) => {
     const socket = useContext(SocketContext)
     const user = useContext(UserContext);
+    const navigate = useNavigate()
 
     const comments = [
         {
@@ -16,12 +17,10 @@ const Card = ({quote}) => {
             body: 'Siap-siap capek kalo udah bisa lari fatin itu kak wkkkk'
         },
         {
-            username: 'ummuzaida',
-            body: 'Ipsum lorem sit amet'
+            username: 'haerulmutakin',
+            body: 'Siap-siap ngekor kemana aja dia pergi haha'
         },
     ]
-
-    const navigate = useNavigate()
     const handleComment = () => {
         navigate(`/detail/comments/${quote.id}`)
     }
