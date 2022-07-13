@@ -14,7 +14,7 @@ const Detail = () => {
         <Fragment>
             <div className="detail-navbar d-flex align-center">
                 <div onClick={handleBack} className='arrow-back mr-10'><FontAwesomeIcon icon={faArrowLeft} /></div>
-                <div>Comments</div>
+                <div>Activities</div>
             </div>
             {outlet}
         </Fragment>
