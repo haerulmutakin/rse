@@ -8,6 +8,8 @@ const schema = new mongoose.Schema({
     },
     theme: String,
     body: String
+}, {
+    timestamps: true
 })
 
 module.exports = mongoose.model('Quote', schema)
