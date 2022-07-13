@@ -25,6 +25,10 @@ const Card = ({quote}) => {
         navigate(`/detail/comments/${quote.id}`)
     }
 
+    const handleMoreLikes = () => {
+        navigate(`/detail/likes/${quote.id}`) 
+    }
+
     const handleLike = (username) => {
         socket.emit('like', {
             receiver: username,
@@ -49,7 +53,7 @@ const Card = ({quote}) => {
             </div>
             <div className='quote-meta-like mx-8 mt-5'>
                 <div>
-                    Liked by <b>ummuzaida</b> and <b>10 others</b>
+                    Liked by <b>ummuzaida</b> and <b className='more-like-label' onClick={handleMoreLikes}>10 others</b>
                 </div>
                 <div className='mt-5'>
                     <div className='view-comment' onClick={handleComment}>View all 6 comments</div>

@@ -43,6 +43,12 @@
 .quote-meta-like {
     font-size: 10px;
 
+    .more-like-label {
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
     .view-comment {
         color: #bdbdbd;
 
