@@ -44,7 +44,7 @@ const Card = ({quote}) => {
                 <div className="user-name">{quote.username}</div>
             </div>
             <div className="card-body" style={{backgroundColor: quote.theme}}>
-                "{quote.quote}"
+                "{quote.body}"
             </div>
             <div className="card-footer d-flex align-center ml-8">
                 <div onClick={() => handleLike(quote.username)}><FontAwesomeIcon icon={faHeart} /></div>

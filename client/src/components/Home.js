@@ -1,27 +1,20 @@
+import { useEffect, useState } from "react";
 import Card from "./Card";
+import Api from "../_api/ApiInstance";
 
 const Home = () => {
+    const [ quotes, setQuotes ] = useState([])
 
-    const quotes = [
-        {
-            id: 1,
-            username: 'haerulmutakin',
-            theme: '#F7B731',
-            quote: 'Two things are infinite: the universe and human stupidity; and Im not sure about the universe.'
-        },
-        {
-            id: 2,
-            username: 'ummuzaida',
-            theme: '#A5B1C2',
-            quote: 'Be yourself; everyone else is already taken.'
-        },
-        {
-            id: 3,
-            username: 'fatin',
-            theme: '#45AAf2',
-            quote: 'A room without books is like a body without a soul.'
-        },
-    ]
+    const fetchQuotes = async () => {
+        const resp = await Api.get('/quote');
+        const data = resp.data;
+        const {result} = data;
+        setQuotes(result);
+    }
+
+    useEffect(() => {
+        fetchQuotes();
+    }, [])
     return ( 
         <div className="home">
             <div className="card-container">
