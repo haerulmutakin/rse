@@ -7,8 +7,7 @@ import Like from './Like';
 import ProtectedRoute from '../_helpers/RouteGuard';
 import {SockerProvider} from '../_context/SocketContext';
 import {UserProvider} from '../_context/UserContext';
-
-
+import NewQuote from './NewQuote';
 
 const ChildRoute = () => {
     return ( 
@@ -23,6 +22,7 @@ const ChildRoute = () => {
                     <Route path='/detail' element={<ProtectedRoute><DetailLauyout /></ProtectedRoute>}>
                         <Route path='comments/:id' element={<Comment />} />
                         <Route path='likes/:id' element={<Like />} />
+                        <Route path='new' element={<NewQuote />} />
                     </Route>
                 </Routes>
             </SockerProvider>
