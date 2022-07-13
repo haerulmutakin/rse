@@ -10,7 +10,7 @@ exports.findComments = async (req, res) => {
         query['quoteId'] = quote_id
     }
 
-    const result = await Comment.find(query)
+    const result = await Comment.find(query).sort({'createdAt': 'desc'})
     .populate('quoteId', '_id')
     .populate('authorId', 'username');
 
