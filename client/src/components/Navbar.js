@@ -8,7 +8,7 @@ const Navbar = () => {
     const [notif, setNotif] = useState(0);
 
     useEffect(() => {
-        socket.on('like', (data) => {
+        socket?.on('like', (data) => {
             console.log(data);
             setNotif((notif) => notif + 1)
         })
