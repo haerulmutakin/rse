@@ -22,11 +22,11 @@ const Card = ({quote}) => {
         },
     ]
     const handleComment = () => {
-        navigate(`/detail/comments/${quote.id}`)
+        navigate(`/detail/comments/${quote._id}`)
     }
 
     const handleMoreLikes = () => {
-        navigate(`/detail/likes/${quote.id}`) 
+        navigate(`/detail/likes/${quote._id}`) 
     }
 
     const handleLike = (username) => {
