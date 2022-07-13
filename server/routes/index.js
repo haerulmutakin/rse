@@ -10,6 +10,7 @@ appRoutes.route('/user')
 
 appRoutes.route('/quote')
     .get(quoteController.findQuotes)
+    .post(quoteController.addQuote)
 
 appRoutes.route('/comment')
     .get(commentController.findComments)

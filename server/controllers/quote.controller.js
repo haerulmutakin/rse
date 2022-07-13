@@ -16,3 +16,12 @@ exports.findQuotes = async (req, res) => {
     });
     res.send(ResponseSchema.list(result))
 }
+
+
+exports.addQuote = async (req, res) => {
+    const body = req.body;
+
+    const quoteData = new Quote(body)
+    await quoteData.save();
+    res.send(ResponseSchema.success('Successfully add quote'));
+}
