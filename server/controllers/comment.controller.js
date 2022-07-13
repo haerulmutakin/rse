@@ -17,6 +17,14 @@ exports.findComments = async (req, res) => {
     res.send(ResponseSchema.list(result))
 }
 
+exports.addComment = async (req, res) => {
+    const body = req.body;
+
+    const comment = new Comment(body)
+    await comment.save();
+    res.send(ResponseSchema.success('Successfully add comment'));
+}
+
 exports.findCommentById = async (req, res) => {
     const {id} = req.params;
     const result = await Comment.findById(id)
