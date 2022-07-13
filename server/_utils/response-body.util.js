@@ -4,3 +4,10 @@ exports.list = (data = []) => {
         result: data
     }
 }
+
+exports.success = (message) =>  {
+    return {
+        status: true,
+        message: message
+    }
+}
