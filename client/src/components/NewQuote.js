@@ -41,7 +41,9 @@ const NewQuote = () => {
                 <textarea onChange={(e) => setQuote(e.target.value)}></textarea>
             </div>
             <button onClick={handlePaletteClick} className='color-palette'><FontAwesomeIcon icon={faPalette} /></button>
-            <button onClick={handleSubmit} className='submit-btn'><FontAwesomeIcon icon={faAngleDoubleRight} /></button>
+            {quote !== '' && (
+                <button onClick={handleSubmit} className='submit-btn'><FontAwesomeIcon icon={faAngleDoubleRight} /></button>
+            )}
         </div>
      );
 }
