@@ -1,13 +1,23 @@
-export const login = (username) => {
-    const date = new Date();
-    date.setDate(date.getDate() + 1);
-    
-    const data = {
-        username: username,
-        exp: date.getTime()
+import Api from "../_api/ApiInstance";
+
+export const login = async (username) => {
+    try {
+        const params = {
+            username: username
+        }
+        const resp = await Api.get('/user', {params: params})
+        const data = resp.data;
+        const {result} = data;
+        
+        if(result.length > 0) {
+            const userData = result[0];
+            localStorage.setItem('session', JSON.stringify(userData))
+            return true;
+        }
+        return false;
+    } catch (error) {
+        return false;
     }
-    
-    localStorage.setItem('session', JSON.stringify(data))
     return;
 }
 

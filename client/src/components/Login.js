@@ -8,8 +8,12 @@ const Login = () => {
 
     const handleLogin = async () => {
         if(username !== '') {
-            await login(username)
-            navigate('/');
+            const res = await login(username)
+            if(res) {
+                navigate('/');
+            } else {
+                console.log('login failed')
+            }
         }
     }
     return ( 
