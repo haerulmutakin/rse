@@ -9,11 +9,14 @@ export const SockerProvider = ({children}) => {
     const user = useContext(UserContext)
 
     const socketConnection = async () => {
-        await setSocket(io.connect('http://localhost:3001'));
-        if(user) {
+        setSocket(io.connect('http://localhost:3001'));
+    }
+
+    useEffect(() => {
+        if(user && socket) {
             socket.emit('newOnlineUser', {username: user.username})
         }
-    }
+    }, [user])
 
     useEffect( () => {
         socketConnection();
