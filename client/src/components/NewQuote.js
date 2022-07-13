@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleDoubleRight, faPalette, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { faAngleDoubleRight, faPalette } from '@fortawesome/free-solid-svg-icons';
 import QuoteColorConstant from '../_constant/QuoteColor.constant';
 import UserContext from '../_context/UserContext';
 import Api from "../_api/ApiInstance";
