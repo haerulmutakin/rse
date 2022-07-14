@@ -6,7 +6,7 @@ import UserContext from '../_context/UserContext';
 import Api from "../_api/ApiInstance";
 import { useNavigate } from 'react-router-dom';
 
-const NewQuote = () => {
+const AddQuote = () => {
     const navigate = useNavigate();
     const user = useContext(UserContext);
     const [color, setColor] = useState(0);
@@ -48,4 +48,4 @@ const NewQuote = () => {
      );
 }
  
-export default NewQuote;
+export default AddQuote;
