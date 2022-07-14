@@ -38,7 +38,6 @@ const Card = ({quote}) => {
 
     const doUnlike = () => {
         const data = likes.find(item => item.authorId._id === user._id)
-        console.log(data._id)
         if(data) {
             socket.emit('unlike', {_id: data._id})
         }

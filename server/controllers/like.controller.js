@@ -13,3 +13,12 @@ exports.findLike = async (req, res) => {
     const like = await Like.find(query).populate('authorId', 'username');
     res.send(ResponseSchema.list(like))
 }
+
+exports.addLike = async (socket, data) => {
+    const likeData = new Like(data);
+    likeData.save();
+}
+
+exports.removeLike = async (socket, data) => {
+    const remove = await Like.deleteOne({_id: data._id})
+}

@@ -47,6 +47,7 @@ const getUser = (userId) => {
 }
 
 const onlineUserCont = require('./controllers/online-user.controller');
+const likeCont = require('./controllers/like.controller');
 
 socketIo.on('connection', (socket) => {
 
@@ -63,11 +64,12 @@ socketIo.on('connection', (socket) => {
         onlineUserCont.removeOnlineUser(socket)
     })
 
-    socket.on('like', ({receiver, sender}) => {
-        const user = getUser(receiver);
-        if(user) {
-            socket.to(user.socketId).emit('like', `${sender} likes your quote`)
-        }
+    socket.on('like', (data) => {
+        likeCont.addLike(socket, data)
+    })
+
+    socket.on('unlike', (data) => {
+        likeCont.removeLike(socket, data)
     })
 })
 
