@@ -4,10 +4,12 @@ import { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import UserContext from '../_context/UserContext';
 import Api from "../_api/ApiInstance";
+import SocketContext from '../_context/SocketContext';
 
 const Comment = () => {
     const urlParams = useParams();
     const user = useContext(UserContext);
+    const {onlineUsers} = useContext(SocketContext);
     const [comments, setComments] = useState([]);
     const [comment, setComment] = useState('');
 
@@ -40,13 +42,18 @@ const Comment = () => {
     useEffect(() => {
         fetchComments();
     }, []);
+
+    const isOnline = (userId) => {
+        return onlineUsers.includes(userId)
+    }
+
     return ( 
         <div className="comment my-10">
             <div>
                 {comments.map((item, index) => (
                     <div key={index} className="d-flex align-start mx-5 mb-10">
                         <div>
-                            <div className="profile profile-3">
+                            <div className={`profile profile-3 ${isOnline(item.authorId._id) ? 'online': ''}`}>
                                 <FontAwesomeIcon icon={faUser} />
                             </div>
                         </div>
