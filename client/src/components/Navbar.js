@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from 'react';
 import SocketContext from '../_context/SocketContext';
 
 const Navbar = () => {
-    const socket = useContext(SocketContext);
+    const {socket} = useContext(SocketContext);
     const [notif, setNotif] = useState(0);
 
     useEffect(() => {
