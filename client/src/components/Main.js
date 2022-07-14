@@ -9,7 +9,7 @@ import {SockerProvider} from '../_context/SocketContext';
 import {UserProvider} from '../_context/UserContext';
 import NewQuote from './NewQuote';
 
-const ChildRoute = () => {
+const Main = () => {
     return ( 
         <UserProvider>
             <SockerProvider>
@@ -30,4 +30,4 @@ const ChildRoute = () => {
      );
 }
  
-export default ChildRoute;
+export default Main;

@@ -3,9 +3,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight, faCircle, faSquare } from '@fortawesome/free-solid-svg-icons';
 import ProtectedRoute from './_helpers/RouteGuard';
 import Login from './components/Login';
-import ChildRoute from './components/ChildRoute';
+import Main from './components/Main';
 
-const Main = () => {
+const App = () => {
     return ( 
         <div className="frame">
             <div className="frame-header"></div>
@@ -16,7 +16,7 @@ const Main = () => {
                             path='/*' 
                             element={
                                 <ProtectedRoute>
-                                    <ChildRoute />
+                                    <Main />
                                 </ProtectedRoute>
                             }
                         />
@@ -37,4 +37,4 @@ const Main = () => {
      );
 }
  
-export default Main;
+export default App;
