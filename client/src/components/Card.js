@@ -29,16 +29,16 @@ const Card = ({quote}) => {
         navigate(`/detail/likes/${quote._id}`) 
     }
 
-    const handleLike = (username) => {
+    const handleLike = (userId) => {
         socket.emit('like', {
-            receiver: username,
+            receiver: userId,
             sender: user.username
         })
     }
     return ( 
         <div className="card">
             <div className="card-header d-flex align-center ml-8">
-                <div className="user-profile-2">
+                <div className={`profile profile-2 ${quote.online ? 'online' : ''}`}>
                     <FontAwesomeIcon icon={faUser} />
                 </div>
                 <div className="user-name">{quote.username}</div>
@@ -47,7 +47,7 @@ const Card = ({quote}) => {
                 "{quote.body}"
             </div>
             <div className="card-footer d-flex align-center ml-8">
-                <div onClick={() => handleLike(quote.username)}><FontAwesomeIcon icon={faHeart} /></div>
+                <div onClick={() => handleLike(quote.userId)}><FontAwesomeIcon icon={faHeart} /></div>
                 <div onClick={handleComment}><FontAwesomeIcon icon={faComment} /></div>
                 <div><FontAwesomeIcon icon={faExternalLink} /></div>
             </div>

@@ -46,7 +46,7 @@ const Comment = () => {
                 {comments.map((item, index) => (
                     <div key={index} className="d-flex align-start mx-5 mb-10">
                         <div>
-                            <div className="user-profile-3">
+                            <div className="profile profile-3">
                                 <FontAwesomeIcon icon={faUser} />
                             </div>
                         </div>
