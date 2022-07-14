@@ -78,7 +78,7 @@ mongoose.connect('mongodb://localhost:27017/react-socket-node', {
     if(err) {
         console.log(err)
     } else {
-        console.log('Successfully connected to mongodb')
+        console.log('Successfuly connected to mongodb')
     }
 })
 

@@ -2,6 +2,7 @@ const express = require('express');
 const userController = require('../controllers/user.controller');
 const quoteController = require('../controllers/quote.controller');
 const commentController = require('../controllers/comment.controller');
+const likeController = require('../controllers/like.controller');
 
 const appRoutes = express.Router();
 
@@ -17,5 +18,8 @@ appRoutes.route('/comment')
     .post(commentController.addComment)
 appRoutes.route('/comment/:id')
     .get(commentController.findCommentById)
+
+appRoutes.route('/like')
+    .get(likeController.findLike)
 
 module.exports = appRoutes;
