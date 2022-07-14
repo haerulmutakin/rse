@@ -33,23 +33,34 @@ const socketIo = new Server(httpServer,  {
 
 const onlineUsers = [];
 
-const addOnlineUser = (username, socketId) => {
-    const userIndex = onlineUsers.findIndex(item => item.username === username);
+const addOnlineUser = (userId, socketId) => {
+    const userIndex = onlineUsers.findIndex(item => item.userId === userId);
     if(userIndex >= 0) {
-        onlineUsers[userIndex] = {username: username, socketId: socketId}
+        onlineUsers[userIndex] = {userId: userId, socketId: socketId}
     } else {
-        onlineUsers.push({username: username, socketId: socketId})
+        onlineUsers.push({userId: userId, socketId: socketId})
     }
 }
 
-const getUser = (username) => {
-    return onlineUsers.find(item => item.username === username)
+const getUser = (userId) => {
+    return onlineUsers.find(item => item.userId === userId)
 }
+
+const onlineUserCont = require('./controllers/online-user.controller');
 
 socketIo.on('connection', (socket) => {
 
     socket.on('newOnlineUser', (data) => {
-        addOnlineUser(data.username, socket.id);
+        // addOnlineUser(data.userId, socket.id);
+        onlineUserCont.newOnlineUser(socket, data)
+    })
+
+    socket.on('getOnlineUser', () => {
+        onlineUserCont.emitOnlineUser(socket)
+    } )
+
+    socket.on('disconnect', () => {
+        onlineUserCont.removeOnlineUser(socket)
     })
 
     socket.on('like', ({receiver, sender}) => {
