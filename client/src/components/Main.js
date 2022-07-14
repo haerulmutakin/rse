@@ -5,14 +5,14 @@ import Home from './Home';
 import Comment from './Comment';
 import Like from './Like';
 import ProtectedRoute from '../_helpers/RouteGuard';
-import {SockerProvider} from '../_context/SocketContext';
+import {SocketProvider} from '../_context/SocketContext';
 import {UserProvider} from '../_context/UserContext';
 import AddQuote from './AddQuote';
 
 const Main = () => {
     return ( 
         <UserProvider>
-            <SockerProvider>
+            <SocketProvider>
                 <Routes>
                     <Route path='/' element={
                         <ProtectedRoute>
@@ -25,7 +25,7 @@ const Main = () => {
                         <Route path='new' element={<AddQuote />} />
                     </Route>
                 </Routes>
-            </SockerProvider>
+            </SocketProvider>
         </UserProvider>
      );
 }

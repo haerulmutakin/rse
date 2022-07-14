@@ -4,7 +4,7 @@ import UserContext from "./UserContext";
 
 const SocketContext  = createContext(null);
 
-export const SockerProvider = ({children}) => {
+export const SocketProvider = ({children}) => {
     const [socket, setSocket] = useState(null)
     const user = useContext(UserContext)
 
