@@ -31,12 +31,18 @@
 }
 
 .card-footer {
-    div {
-        width: 20px;
-        color: #10B9B1;
-        :hover {
-            cursor: pointer;
+    .action {
+        div{
+            width: 20px;
+            color: #10B9B1;
+            :hover {
+                cursor: pointer;
+            }
         }
+    }
+
+    .quote-date {
+        font-size: 8px;
     }
 }
 
