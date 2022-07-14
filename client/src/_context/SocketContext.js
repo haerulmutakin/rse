@@ -6,16 +6,24 @@ const SocketContext  = createContext(null);
 
 export const SocketProvider = ({children}) => {
     const [socket, setSocket] = useState(null)
+    const [onlineUsers, setOnlineUsers] = useState([])
     const user = useContext(UserContext)
 
-    const socketConnection = async () => {
+    const socketConnection =  () => {
         setSocket(io.connect('http://localhost:3001'));
     }
 
-    useEffect(() => {
+    const initialSocket = () => {
         if(user && socket) {
-            socket.emit('newOnlineUser', {username: user.username})
+            socket.emit('newOnlineUser', {userId: user._id})
+            socket.on('update_online_user', (onlineUsers = []) => {
+                setOnlineUsers(onlineUsers.map(item => item.userId))
+            })
         }
+    }
+
+    useEffect(() => {
+        initialSocket();
     }, [user])
 
     useEffect( () => {
@@ -23,7 +31,7 @@ export const SocketProvider = ({children}) => {
     }, [])
 
     return (
-        <SocketContext.Provider value={socket}>
+        <SocketContext.Provider value={{socket, onlineUsers}}>
             {children}
         </SocketContext.Provider>
     )
