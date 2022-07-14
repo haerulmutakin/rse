@@ -13,6 +13,7 @@ const Card = ({quote}) => {
     const user = useContext(UserContext);
     const navigate = useNavigate();
     const [comments, setComments] = useState([]);
+    const [likes, setLikes] = useState([]);
 
     const handleComment = () => {
         navigate(`/detail/comments/${quote._id}`)
@@ -39,8 +40,19 @@ const Card = ({quote}) => {
         setComments(result);
     }
 
+    const fetchLikes = async () => {
+        const params = {
+            'quote_id': quote._id
+        }
+        const resp = await Api.get('/like', {params: params});
+        const data = resp.data;
+        const {result} = data;
+        setLikes(result);
+    }
+
     useEffect(() => {
         fetchComments();
+        fetchLikes();
     }, [])
 
     const isOnline = () => {
@@ -66,8 +78,15 @@ const Card = ({quote}) => {
                 <div className='quote-date'>{format(quote.createdAt, 'DD MMMM YYYY')}</div>
             </div>
             <div className='quote-meta-like mx-8 mt-5'>
+                {likes.length > 0 && (
+                    <Fragment>
+                        Liked by <b>{likes[likes.length - 1].authorId?.username}</b> 
+                        {likes.length > 1 && (
+                            <Fragment>and <b className='more-like-label' onClick={handleMoreLikes}>{likes.length - 1} others</b></Fragment>
+                        )} 
+                    </Fragment>
+                )}
                 <div>
-                    Liked by <b>ummuzaida</b> and <b className='more-like-label' onClick={handleMoreLikes}>10 others</b>
                 </div>
                 <div className='mt-5'>
                     {comments.length > 2 && (
