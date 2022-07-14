@@ -13,7 +13,8 @@ exports.findQuotes = async (req, res) => {
             "userId": _id,
             "username": username,
             "theme": item.theme,
-            "body": item.body
+            "body": item.body,
+            "createdAt": item.createdAt
         })
     });
     res.send(ResponseSchema.list(result))
