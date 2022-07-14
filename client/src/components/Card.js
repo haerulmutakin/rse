@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState, Fragment } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faExternalLink } from '@fortawesome/free-solid-svg-icons';
 import { faHeart, faComment } from '@fortawesome/free-regular-svg-icons';
@@ -6,22 +6,14 @@ import { useNavigate } from 'react-router-dom';
 import SocketContext from '../_context/SocketContext';
 import UserContext from '../_context/UserContext';
 import { format } from '../_helpers/Date';
+import Api from "../_api/ApiInstance";
 
 const Card = ({quote}) => {
     const {onlineUsers = [], socket} = useContext(SocketContext);
     const user = useContext(UserContext);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const [comments, setComments] = useState([]);
 
-    const comments = [
-        {
-            username: 'ummuzaida',
-            body: 'Siap-siap capek kalo udah bisa lari fatin itu kak wkkkk'
-        },
-        {
-            username: 'haerulmutakin',
-            body: 'Siap-siap ngekor kemana aja dia pergi haha'
-        },
-    ]
     const handleComment = () => {
         navigate(`/detail/comments/${quote._id}`)
     }
@@ -36,6 +28,20 @@ const Card = ({quote}) => {
             sender: user.username
         })
     }
+
+    const fetchComments = async () => {
+        const params = {
+            'quote_id': quote._id
+        }
+        const resp = await Api.get('/comment', {params: params});
+        const data = resp.data;
+        const {result} = data;
+        setComments(result);
+    }
+
+    useEffect(() => {
+        fetchComments();
+    }, [])
 
     const isOnline = () => {
         return onlineUsers.includes(quote.userId)
@@ -64,9 +70,15 @@ const Card = ({quote}) => {
                     Liked by <b>ummuzaida</b> and <b className='more-like-label' onClick={handleMoreLikes}>10 others</b>
                 </div>
                 <div className='mt-5'>
-                    <div className='view-comment' onClick={handleComment}>View all 6 comments</div>
+                    {comments.length > 2 && (
+                        <div className='view-comment' onClick={handleComment}>View all {comments.length} comments</div>
+                    )}
                     {comments.map((item, index) => (
-                        <div key={index} className="mt-3"><b>{item.username}</b> {item.body}</div>
+                        <Fragment key={index}>
+                            {index < 2 && (
+                                <div className="mt-3"><b>{item.authorId.username}</b> {item.body}</div>
+                            )}
+                        </Fragment>
                     ))}
                 </div>
             </div>
