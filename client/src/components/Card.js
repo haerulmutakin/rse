@@ -7,7 +7,7 @@ import SocketContext from '../_context/SocketContext';
 import UserContext from '../_context/UserContext';
 
 const Card = ({quote}) => {
-    const socket = useContext(SocketContext)
+    const {onlineUsers = [], socket} = useContext(SocketContext);
     const user = useContext(UserContext);
     const navigate = useNavigate()
 
@@ -35,10 +35,14 @@ const Card = ({quote}) => {
             sender: user.username
         })
     }
+
+    const isOnline = () => {
+        return onlineUsers.includes(quote.userId)
+    }
     return ( 
         <div className="card">
             <div className="card-header d-flex align-center ml-8">
-                <div className={`profile profile-2 ${quote.online ? 'online' : ''}`}>
+                <div className={`profile profile-2 ${isOnline() ? 'online' : ''}`}>
                     <FontAwesomeIcon icon={faUser} />
                 </div>
                 <div className="user-name">{quote.username}</div>
