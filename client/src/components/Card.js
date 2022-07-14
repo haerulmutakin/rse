@@ -1,12 +1,13 @@
 import { useContext, useEffect, useState, Fragment } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faExternalLink } from '@fortawesome/free-solid-svg-icons';
-import { faHeart, faComment } from '@fortawesome/free-regular-svg-icons';
+import { faUser, faHeart, faExternalLink } from '@fortawesome/free-solid-svg-icons';
+import { faComment, faHeart as heart } from '@fortawesome/free-regular-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import SocketContext from '../_context/SocketContext';
 import UserContext from '../_context/UserContext';
 import { format } from '../_helpers/Date';
 import Api from "../_api/ApiInstance";
+
 
 const Card = ({quote}) => {
     const {onlineUsers = [], socket} = useContext(SocketContext);
@@ -14,6 +15,7 @@ const Card = ({quote}) => {
     const navigate = useNavigate();
     const [comments, setComments] = useState([]);
     const [likes, setLikes] = useState([]);
+    const [likesMap, setLikesMap] = useState([]);
 
     const handleComment = () => {
         navigate(`/detail/comments/${quote._id}`)
@@ -23,11 +25,32 @@ const Card = ({quote}) => {
         navigate(`/detail/likes/${quote._id}`) 
     }
 
-    const handleLike = (userId) => {
+    const isLiked = () => {
+        return likesMap.includes(user._id)
+    }
+
+    const doLike = () => {
         socket.emit('like', {
-            receiver: userId,
-            sender: user.username
+            quoteId: quote._id,
+            authorId: user._id
         })
+    }
+
+    const doUnlike = () => {
+        const data = likes.find(item => item.authorId._id === user._id)
+        console.log(data._id)
+        if(data) {
+            socket.emit('unlike', {_id: data._id})
+        }
+    }
+
+    const handleLike = () => {
+        const is = isLiked()
+        if(isLiked()) {
+            doUnlike();
+        } else {
+            doLike();
+        }
     }
 
     const fetchComments = async () => {
@@ -48,6 +71,7 @@ const Card = ({quote}) => {
         const data = resp.data;
         const {result} = data;
         setLikes(result);
+        setLikesMap(result.map(item => item.authorId._id))
     }
 
     useEffect(() => {
@@ -58,6 +82,7 @@ const Card = ({quote}) => {
     const isOnline = () => {
         return onlineUsers.includes(quote.userId)
     }
+
     return ( 
         <div className="card">
             <div className="card-header d-flex align-center ml-8">
@@ -71,7 +96,7 @@ const Card = ({quote}) => {
             </div>
             <div className="card-footer d-flex align-center justify-between mx-8">
                 <div className='action d-flex align-center'>
-                    <div onClick={() => handleLike(quote.userId)}><FontAwesomeIcon icon={faHeart} /></div>
+                    <div onClick={handleLike} className={`${isLiked() ? 'like' : ''}`}><FontAwesomeIcon icon={isLiked() ? faHeart : heart} /></div>
                     <div onClick={handleComment}><FontAwesomeIcon icon={faComment} /></div>
                     <div><FontAwesomeIcon icon={faExternalLink} /></div>
                 </div>
