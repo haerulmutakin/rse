@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import UserContext from '../_context/UserContext';
 import Api from "../_api/ApiInstance";
 import SocketContext from '../_context/SocketContext';
+import { format } from '../_helpers/Date';
 
 const Comment = () => {
     const urlParams = useParams();
@@ -62,8 +63,7 @@ const Comment = () => {
                                 <b>{item.authorId?.username}</b> {item.body}
                             </div>
                             <div className='comment-action'>
-                                <span>Reply</span>
-                                <span>Like</span>
+                                <span>{format(item.createdAt, 'DD MMMM YYYY')}</span>
                             </div>
                         </div>
                     </div>
