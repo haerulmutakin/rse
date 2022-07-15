@@ -17,7 +17,7 @@ const Home = () => {
     }
 
     const handleNewQuote = () => {
-        navigate(`/detail/new`)
+        navigate(`/detail/new-quote`)
     }
 
     useEffect(() => {

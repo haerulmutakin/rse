@@ -23,8 +23,8 @@ const Main = () => {
                     <Route path='/detail' element={<ProtectedRoute><DetailLauyout /></ProtectedRoute>}>
                         <Route path='comments/:id' element={<Comment />} />
                         <Route path='likes/:id' element={<Like />} />
-                        <Route path='new' element={<AddQuote />} />
-                        <Route path='notification' element={<Notification />} />
+                        <Route path='new-quote' element={<AddQuote />} />
+                        <Route path='notifications' element={<Notification />} />
                     </Route>
                 </Routes>
             </SocketProvider>

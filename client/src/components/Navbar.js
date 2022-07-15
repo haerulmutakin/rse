@@ -11,7 +11,7 @@ const Navbar = () => {
     const navigate = useNavigate();
 
     const handleNotif = () => {
-        navigate('/detail/notification')
+        navigate('/detail/notifications')
     }
 
     return ( 
