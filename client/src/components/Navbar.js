@@ -3,9 +3,11 @@ import { faBell, faEnvelope, faUser } from '@fortawesome/free-solid-svg-icons';
 import { useContext } from 'react';
 import SocketContext from '../_context/SocketContext';
 import { useNavigate } from 'react-router-dom';
+import UserContext from '../_context/UserContext';
 
 const Navbar = () => {
     const {notifications} = useContext(SocketContext);
+    const user = useContext(UserContext);
     const navigate = useNavigate();
 
     const handleNotif = () => {
@@ -15,7 +17,7 @@ const Navbar = () => {
     return ( 
         <div className="navbar d-flex align-center justify-between">
             <div className="brand">
-                Quoten
+                {user?.username}
             </div>
             <div className="nav d-flex">
                 <div className='nav-item' onClick={handleNotif}>

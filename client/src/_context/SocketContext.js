@@ -32,6 +32,9 @@ export const SocketProvider = ({children}) => {
             socket.on('update_online_user', (onlineUsers = []) => {
                 setOnlineUsers(onlineUsers.map(item => item.userId))
             })
+            socket.on('notification', (data) => {
+                setNotifications(old => [data, ...old])
+            })
             fetchNotification();
         }
     }
