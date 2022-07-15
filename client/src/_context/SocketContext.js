@@ -1,16 +1,29 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import UserContext from "./UserContext";
+import Api from "../_api/ApiInstance";
 
 const SocketContext  = createContext(null);
 
 export const SocketProvider = ({children}) => {
     const [socket, setSocket] = useState(null)
     const [onlineUsers, setOnlineUsers] = useState([])
+    const [notifications, setNotifications] = useState([])
     const user = useContext(UserContext)
 
     const socketConnection =  () => {
         setSocket(io.connect('http://localhost:3001'));
+    }
+
+    const fetchNotification = async () => {
+        const params = {
+            'receiver_id':  user?._id
+        }
+
+        const resp = await Api.get('/notification', {params: params})
+        const data = resp.data;
+        const {result} = data;
+        setNotifications(result);
     }
 
     const initialSocket = () => {
@@ -19,6 +32,7 @@ export const SocketProvider = ({children}) => {
             socket.on('update_online_user', (onlineUsers = []) => {
                 setOnlineUsers(onlineUsers.map(item => item.userId))
             })
+            fetchNotification();
         }
     }
 
@@ -31,7 +45,7 @@ export const SocketProvider = ({children}) => {
     }, [])
 
     return (
-        <SocketContext.Provider value={{socket, onlineUsers}}>
+        <SocketContext.Provider value={{socket, onlineUsers, notifications}}>
             {children}
         </SocketContext.Provider>
     )
