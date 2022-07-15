@@ -17,9 +17,6 @@ appRoutes.route('/quote')
 appRoutes.route('/comment')
     .get(commentController.findComments)
 
-appRoutes.route('/comment/:id')
-    .get(commentController.findCommentById)
-
 appRoutes.route('/like')
     .get(likeController.findLike)
 

@@ -18,15 +18,6 @@ exports.findComments = async (req, res) => {
     res.send(ResponseSchema.list(result))
 }
 
-exports.findCommentById = async (req, res) => {
-    const {id} = req.params;
-    const result = await Comment.findById(id)
-        .populate('quoteId', '_id')
-        .populate('authorId', 'username');
-    res.send(ResponseSchema.list(result))
-}
-
-
 exports.newComment = async (socket, data) => {
     const comment = new Comment(data)
     await comment.save();
