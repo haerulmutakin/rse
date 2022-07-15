@@ -16,6 +16,9 @@ const Notification = mongoose.model('Notification', new mongoose.Schema({
         type: mongoose.Schema.Types.Mixed,
         ref: User
     },
+    body: {
+        type: String
+    }
 }, {
     timestamps: true
 }))
