@@ -23,5 +23,9 @@ exports.addLike = async (socket, data) => {
 }
 
 exports.removeLike = async (socket, data) => {
-    const remove = await Like.deleteOne({_id: data._id})
+    data.type = 'like';
+    const notifDeleted = notifCont.removeNotification(socket, data)
+    if(notifDeleted) {
+        await Like.deleteOne({_id: data._id})
+    }
 }

@@ -1,11 +1,7 @@
 const ResponseSchema = require('../_utils/response-body.util');
 const Notification = require('../models/notification.model');
+const Like = require('../models/like.model');
 const Quote = require('../models/quote.model');
-
-exports.getNotification = async (req, res) => {
-    const notif = await Notification.find().populate('receiverId', 'username').populate('authorId', 'username');
-    res.send(notif)
-}
 
 exports.getNotificationByReceiver = async (req, res) => {
     const params = req.query;
@@ -30,6 +26,19 @@ exports.addNotification = async (socket, data) => {
     } else {
         console.log('quote data not found')
     }
+}
+
+exports.removeNotification = async (socket, data) => {
+    const likeData = await Like.findById(data._id);
+    if(likeData) {
+        const notifData = await Notification.findOneAndDelete({type: data.type, quoteId: likeData.quoteId, authorId: likeData.authorId})
+        if(notifData) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    return false;
 }
 
 getReceiver = async (data) => {
