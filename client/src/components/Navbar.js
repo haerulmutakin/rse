@@ -14,6 +14,8 @@ const Navbar = () => {
         navigate('/detail/notifications')
     }
 
+    const unseenNotifications = [...notifications].filter(item => !item.seen);
+
     return ( 
         <div className="navbar d-flex align-center justify-between">
             <div className="brand">
@@ -22,7 +24,7 @@ const Navbar = () => {
             <div className="nav d-flex">
                 <div className='nav-item' onClick={handleNotif}>
                     <FontAwesomeIcon icon={faBell} />
-                    {notifications.length > 0 && <div className='badge'>{notifications.length}</div>}
+                    {unseenNotifications.length > 0 && <div className='badge'>{unseenNotifications.length}</div>}
                     
                 </div>
                 <div className='nav-item'>
