@@ -8,6 +8,7 @@ import ProtectedRoute from '../_helpers/RouteGuard';
 import {SocketProvider} from '../_context/SocketContext';
 import {UserProvider} from '../_context/UserContext';
 import AddQuote from './AddQuote';
+import Notification from './Notification';
 
 const Main = () => {
     return ( 
@@ -23,6 +24,7 @@ const Main = () => {
                         <Route path='comments/:id' element={<Comment />} />
                         <Route path='likes/:id' element={<Like />} />
                         <Route path='new' element={<AddQuote />} />
+                        <Route path='notification' element={<Notification />} />
                     </Route>
                 </Routes>
             </SocketProvider>
