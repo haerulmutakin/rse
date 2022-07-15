@@ -1,6 +1,7 @@
 const ResponseSchema = require('../_utils/response-body.util');
 const Notification = require('../models/notification.model');
 const Like = require('../models/like.model');
+const OnlineUser = require('../models/online-user.model');
 const Quote = require('../models/quote.model');
 
 exports.getNotificationByReceiver = async (req, res) => {
@@ -23,6 +24,8 @@ exports.addNotification = async (socket, data) => {
 
         const notifData = new Notification(payload);
         await notifData.save();
+        const newNotif = await Notification.findOne({_id: notifData.id}).populate('authorId', 'username').sort({'createdAt': 'desc'})
+        emitNotification(socket, newNotif);
     } else {
         console.log('quote data not found')
     }
@@ -44,4 +47,18 @@ exports.removeNotification = async (socket, data) => {
 getReceiver = async (data) => {
     const quote = await Quote.findOne({_id: data.quoteId}).populate('userId', '_id')
     return quote;
+}
+
+emitNotification = async (socket, notifData) => {
+    const socketData = await getReceiverSocketId(notifData);
+    if(socketData) {
+        socket.to(socketData.socketId).emit('notification', notifData);
+    } else {
+        console.log('not emmiting, socketData not found')
+    }
+}
+
+getReceiverSocketId = async (notifData) => {
+    const online = await OnlineUser.findOne({userId: notifData.receiverId});
+    return online
 }
