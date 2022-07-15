@@ -10,7 +10,7 @@ import { format } from '../_helpers/Date';
 const Comment = () => {
     const urlParams = useParams();
     const user = useContext(UserContext);
-    const {onlineUsers} = useContext(SocketContext);
+    const {socket, onlineUsers} = useContext(SocketContext);
     const [comments, setComments] = useState([]);
     const [comment, setComment] = useState('');
 
@@ -33,11 +33,8 @@ const Comment = () => {
             body: comment
         }
 
-        const resp = await Api.post('/comment', payload)
-        const data = resp.data;
-        if(data.status === true) {
-            fetchComments();
-        }
+        await socket.emit('set:comment', payload)
+        fetchComments();
     }
 
     useEffect(() => {

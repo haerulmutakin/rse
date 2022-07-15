@@ -1,5 +1,6 @@
 const ResponseSchema = require('../_utils/response-body.util');
 const Comment = require('../models/comment.model');
+const notifCont = require('./notification.controller');
 
 exports.findComments = async (req, res) => {
     const qParams = req.query;
@@ -17,18 +18,18 @@ exports.findComments = async (req, res) => {
     res.send(ResponseSchema.list(result))
 }
 
-exports.addComment = async (req, res) => {
-    const body = req.body;
-
-    const comment = new Comment(body)
-    await comment.save();
-    res.send(ResponseSchema.success('Successfully add comment'));
-}
-
 exports.findCommentById = async (req, res) => {
     const {id} = req.params;
     const result = await Comment.findById(id)
         .populate('quoteId', '_id')
         .populate('authorId', 'username');
     res.send(ResponseSchema.list(result))
+}
+
+
+exports.newComment = async (socket, data) => {
+    const comment = new Comment(data)
+    await comment.save();
+    data.type = 'comment';
+    await notifCont.addNotification(socket, data);
 }

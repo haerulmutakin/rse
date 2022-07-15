@@ -30,6 +30,7 @@ const socketIo = new Server(httpServer,  {
 
 const onlineUserCont = require('./controllers/online-user.controller');
 const likeCont = require('./controllers/like.controller');
+const commentCont = require('./controllers/comment.controller');
 
 socketIo.on('connection', (socket) => {
 
@@ -47,6 +48,10 @@ socketIo.on('connection', (socket) => {
 
     socket.on('set:unlike', (data) => {
         likeCont.removeLike(socket, data)
+    })
+
+    socket.on('set:comment', (data) => {
+        commentCont.newComment(socket, data)
     })
 
     socket.on('disconnect', () => {
