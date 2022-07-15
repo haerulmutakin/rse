@@ -1,15 +1,31 @@
-import { Fragment, useContext } from "react";
+import { useContext, useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import SocketContext from "../_context/SocketContext";
 import { format } from '../_helpers/Date';
+import UserContext from "../_context/UserContext";
 
 const Notification = () => {
-    const {onlineUsers, notifications} = useContext(SocketContext);
+    const {socket, onlineUsers, notifications} = useContext(SocketContext);
+    const user = useContext(UserContext);
 
     const isOnline = (userId) => {
         return onlineUsers.includes(userId)
     }
+
+    useEffect(() => {
+        const data = [...notifications];
+        const unseenNotif = data.filter(item => !item.seen);
+        if(unseenNotif.length > 0) {
+            const payload = {
+                userId: user._id,
+                notifIds: unseenNotif.map(item => item._id)
+            };
+            socket.emit('set:seennotif', payload);
+        }
+
+    })
+
     return ( 
         <div className="notification">
             {notifications.map(item => (

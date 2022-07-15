@@ -20,7 +20,8 @@ exports.addNotification = async (socket, data) => {
     if(quoteData) {
         const payload = {...data};
         const {userId} = quoteData;
-        payload.receiverId = userId.id
+        payload.receiverId = userId.id;
+        payload.seen = false;
 
         const notifData = new Notification(payload);
         await notifData.save();
@@ -28,6 +29,15 @@ exports.addNotification = async (socket, data) => {
         emitNotification(socket, 'new', newNotif);
     } else {
         console.log('quote data not found')
+    }
+}
+
+exports.updateNotificationSeen = async (socket, data) => {
+    const {userId, notifIds} = data;
+    const updateData = await Notification.updateMany({_id: {$in: notifIds}}, {seen: true})
+    const {modifiedCount} = updateData;
+    if(modifiedCount > 0) {
+        emitUpdatedNotification(socket, userId);
     }
 }
 
@@ -61,6 +71,11 @@ emitNotification = async (socket, type, notifData) => {
     } else {
         console.log('not emmiting, socketData not found')
     }
+}
+
+emitUpdatedNotification = async (socket, receiverId) => {
+    const notif = await Notification.find({receiverId: receiverId}).populate('authorId', 'username').sort({'createdAt': 'desc'});
+    socket.emit('get:updatednotification', notif)
 }
 
 getReceiverSocketId = async (notifData) => {

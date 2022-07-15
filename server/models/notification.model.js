@@ -18,6 +18,9 @@ const Notification = mongoose.model('Notification', new mongoose.Schema({
     },
     body: {
         type: String
+    },
+    seen: {
+        type: Boolean
     }
 }, {
     timestamps: true

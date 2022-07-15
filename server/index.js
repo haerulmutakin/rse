@@ -31,6 +31,7 @@ const socketIo = new Server(httpServer,  {
 const onlineUserCont = require('./controllers/online-user.controller');
 const likeCont = require('./controllers/like.controller');
 const commentCont = require('./controllers/comment.controller');
+const notifCont = require('./controllers/notification.controller');
 
 socketIo.on('connection', (socket) => {
 
@@ -52,6 +53,10 @@ socketIo.on('connection', (socket) => {
 
     socket.on('set:comment', (data) => {
         commentCont.newComment(socket, data)
+    })
+
+    socket.on('set:seennotif', (data) => {
+        notifCont.updateNotificationSeen(socket, data)
     })
 
     socket.on('disconnect', () => {

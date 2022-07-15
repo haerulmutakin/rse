@@ -68,6 +68,10 @@ export const SocketProvider = ({children}) => {
                 });
                 setUserLikes(map);
             })
+
+            socket.on('get:updatednotification', (data) => {
+                setNotifications(data);
+            })
             fetchNotification();
             fetchLikes();
         }
