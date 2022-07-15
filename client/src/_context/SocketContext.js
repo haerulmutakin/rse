@@ -9,6 +9,7 @@ export const SocketProvider = ({children}) => {
     const [socket, setSocket] = useState(null)
     const [onlineUsers, setOnlineUsers] = useState([])
     const [notifications, setNotifications] = useState([])
+    const [userLikes, setUserLikes] = useState([]);
     const user = useContext(UserContext)
 
     const socketConnection =  () => {
@@ -26,6 +27,23 @@ export const SocketProvider = ({children}) => {
         setNotifications(result);
     }
 
+    const fetchLikes = async () => {
+        const params = {
+            'author_id':  user?._id
+        }
+
+        const resp = await Api.get('/like', {params: params})
+        const data = resp.data;
+        const {result} = data;
+        const map = result.map(item => {
+            return {
+                quoteId: item.quoteId,
+                id: item._id
+            }
+        });
+        setUserLikes(map);
+    }
+
     const initialSocket = () => {
         if(user && socket) {
             socket.emit('newOnlineUser', {userId: user._id})
@@ -40,7 +58,18 @@ export const SocketProvider = ({children}) => {
                     setNotifications(newData => newData.filter(x => x._id !== data._id))
                 }
             })
+
+            socket.on('user_likes', (data = []) => {
+                const map = data.map(item => {
+                    return {
+                        quoteId: item.quoteId,
+                        id: item._id
+                    }
+                });
+                setUserLikes(map);
+            })
             fetchNotification();
+            fetchLikes();
         }
     }
 
@@ -53,7 +82,7 @@ export const SocketProvider = ({children}) => {
     }, [])
 
     return (
-        <SocketContext.Provider value={{socket, onlineUsers, notifications}}>
+        <SocketContext.Provider value={{socket, onlineUsers, notifications, userLikes}}>
             {children}
         </SocketContext.Provider>
     )
