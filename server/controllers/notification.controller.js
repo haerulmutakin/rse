@@ -25,7 +25,7 @@ exports.addNotification = async (socket, data) => {
         const notifData = new Notification(payload);
         await notifData.save();
         const newNotif = await Notification.findOne({_id: notifData.id}).populate('authorId', 'username').sort({'createdAt': 'desc'})
-        emitNotification(socket, newNotif);
+        emitNotification(socket, 'new', newNotif);
     } else {
         console.log('quote data not found')
     }
@@ -49,10 +49,14 @@ getReceiver = async (data) => {
     return quote;
 }
 
-emitNotification = async (socket, notifData) => {
+emitNotification = async (socket, type, notifData) => {
     const socketData = await getReceiverSocketId(notifData);
     if(socketData) {
-        socket.to(socketData.socketId).emit('notification', notifData);
+        const payload = {
+            type: type,
+            data: notifData
+        }
+        socket.to(socketData.socketId).emit('notification', payload);
     } else {
         console.log('not emmiting, socketData not found')
     }
