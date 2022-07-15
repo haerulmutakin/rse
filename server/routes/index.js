@@ -24,7 +24,7 @@ appRoutes.route('/like')
     .get(likeController.findLike)
 
 appRoutes.route('/notification')
-    .get(notifController.getNotification)
+    .get(notifController.getNotificationByReceiver)
 
 
 module.exports = appRoutes;

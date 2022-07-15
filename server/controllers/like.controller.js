@@ -1,5 +1,6 @@
 const ResponseSchema = require('../_utils/response-body.util');
 const Like = require('../models/like.model');
+const notifCont = require('./notification.controller');
 
 exports.findLike = async (req, res) => {
     const qParams = req.query;
@@ -16,7 +17,9 @@ exports.findLike = async (req, res) => {
 
 exports.addLike = async (socket, data) => {
     const likeData = new Like(data);
-    likeData.save();
+    await likeData.save();
+    data.type = 'like';
+    notifCont.addNotification(socket, data)
 }
 
 exports.removeLike = async (socket, data) => {
