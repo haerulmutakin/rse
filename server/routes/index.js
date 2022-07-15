@@ -3,6 +3,7 @@ const userController = require('../controllers/user.controller');
 const quoteController = require('../controllers/quote.controller');
 const commentController = require('../controllers/comment.controller');
 const likeController = require('../controllers/like.controller');
+const notifController = require('../controllers/notification.controller');
 
 const appRoutes = express.Router();
 
@@ -21,5 +22,9 @@ appRoutes.route('/comment/:id')
 
 appRoutes.route('/like')
     .get(likeController.findLike)
+
+appRoutes.route('/notification')
+    .get(notifController.getNotification)
+
 
 module.exports = appRoutes;

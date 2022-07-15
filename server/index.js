@@ -21,8 +21,6 @@ App.use('/api/v1', appRoutes)
 
 const httpServer = http.createServer(App);
 
-
-
 const socketIo = new Server(httpServer,  {
     cors: {
         origin: 'http://localhost:3000',
@@ -30,29 +28,12 @@ const socketIo = new Server(httpServer,  {
     }
 });
 
-
-const onlineUsers = [];
-
-const addOnlineUser = (userId, socketId) => {
-    const userIndex = onlineUsers.findIndex(item => item.userId === userId);
-    if(userIndex >= 0) {
-        onlineUsers[userIndex] = {userId: userId, socketId: socketId}
-    } else {
-        onlineUsers.push({userId: userId, socketId: socketId})
-    }
-}
-
-const getUser = (userId) => {
-    return onlineUsers.find(item => item.userId === userId)
-}
-
 const onlineUserCont = require('./controllers/online-user.controller');
 const likeCont = require('./controllers/like.controller');
 
 socketIo.on('connection', (socket) => {
 
     socket.on('newOnlineUser', (data) => {
-        // addOnlineUser(data.userId, socket.id);
         onlineUserCont.newOnlineUser(socket, data)
     })
 
