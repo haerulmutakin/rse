@@ -37,5 +37,5 @@ exports.removeLike = async (socket, data) => {
 
 emitLikes = async (socket, data) => {
     const likes = await Like.find({authorId: data.authorId});
-    socket.emit('user_likes', likes)
+    socket.emit('get:likes', likes)
 }

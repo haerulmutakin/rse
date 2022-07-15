@@ -46,11 +46,11 @@ export const SocketProvider = ({children}) => {
 
     const initialSocket = () => {
         if(user && socket) {
-            socket.emit('newOnlineUser', {userId: user._id})
-            socket.on('update_online_user', (onlineUsers = []) => {
+            socket.emit('set:online', {userId: user._id})
+            socket.on('get:online', (onlineUsers = []) => {
                 setOnlineUsers(onlineUsers.map(item => item.userId))
             })
-            socket.on('notification', (event) => {
+            socket.on('get:notification', (event) => {
                 const {type, data} = event;
                 if(type === 'new') {
                     setNotifications(old => [data, ...old])
@@ -59,7 +59,7 @@ export const SocketProvider = ({children}) => {
                 }
             })
 
-            socket.on('user_likes', (data = []) => {
+            socket.on('get:likes', (data = []) => {
                 const map = data.map(item => {
                     return {
                         quoteId: item.quoteId,

@@ -33,24 +33,24 @@ const likeCont = require('./controllers/like.controller');
 
 socketIo.on('connection', (socket) => {
 
-    socket.on('newOnlineUser', (data) => {
+    socket.on('set:online', (data) => {
         onlineUserCont.newOnlineUser(socket, data)
     })
 
-    socket.on('getOnlineUser', () => {
+    socket.on('get:online', () => {
         onlineUserCont.emitOnlineUser(socket)
     } )
 
-    socket.on('disconnect', () => {
-        onlineUserCont.removeOnlineUser(socket)
-    })
-
-    socket.on('like', (data) => {
+    socket.on('set:like', (data) => {
         likeCont.addLike(socket, data)
     })
 
-    socket.on('unlike', (data) => {
+    socket.on('set:unlike', (data) => {
         likeCont.removeLike(socket, data)
+    })
+
+    socket.on('disconnect', () => {
+        onlineUserCont.removeOnlineUser(socket)
     })
 })
 

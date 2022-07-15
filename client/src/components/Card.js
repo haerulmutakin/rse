@@ -29,7 +29,7 @@ const Card = ({quote}) => {
     }
 
     const doLike = () => {
-        socket.emit('like', {
+        socket.emit('set:like', {
             quoteId: quote._id,
             authorId: user._id
         })
@@ -38,7 +38,7 @@ const Card = ({quote}) => {
     const doUnlike = (quoteId) => {
         const data = userLikes.find(item => item.quoteId === quoteId)
         if(data) {
-            socket.emit('unlike', {_id: data.id})
+            socket.emit('set:unlike', {_id: data.id})
         }
     }
 

@@ -57,7 +57,7 @@ emitNotification = async (socket, type, notifData) => {
             type: type,
             data: notifData
         }
-        socket.to(socketData.socketId).emit('notification', payload);
+        socket.to(socketData.socketId).emit('get:notification', payload);
     } else {
         console.log('not emmiting, socketData not found')
     }

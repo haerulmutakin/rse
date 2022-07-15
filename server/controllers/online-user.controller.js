@@ -14,6 +14,6 @@ exports.removeOnlineUser = async (socket) => {
 
 emitOnlineUser = async (socket) => {
     const onlineUsers = await OnlineUser.find();
-    socket.broadcast.emit('update_online_user', onlineUsers);
-    socket.emit('update_online_user', onlineUsers);
+    socket.broadcast.emit('get:online', onlineUsers);
+    socket.emit('get:online', onlineUsers);
 }
