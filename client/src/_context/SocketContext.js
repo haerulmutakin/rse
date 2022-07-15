@@ -36,6 +36,8 @@ export const SocketProvider = ({children}) => {
                 const {type, data} = event;
                 if(type === 'new') {
                     setNotifications(old => [data, ...old])
+                } else {
+                    setNotifications(newData => newData.filter(x => x._id === data._id))
                 }
             })
             fetchNotification();

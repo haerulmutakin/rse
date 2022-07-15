@@ -24,7 +24,8 @@ exports.addNotification = async (socket, data) => {
 
         const notifData = new Notification(payload);
         await notifData.save();
-        emitNotification(socket, 'new', notifData);
+        const newNotif = await Notification.findOne({_id: notifData.id}).populate('authorId', 'username').sort({'createdAt': 'desc'})
+        emitNotification(socket, 'new', newNotif);
     } else {
         console.log('quote data not found')
     }
@@ -35,7 +36,7 @@ exports.removeNotification = async (socket, data) => {
     if(likeData) {
         const notifData = await Notification.findOneAndDelete({type: data.type, quoteId: likeData.quoteId, authorId: likeData.authorId})
         if(notifData) {
-            emitNotification()
+            emitNotification(socket, 'remove', notifData);
             return true;
         } else {
             return false;
@@ -50,12 +51,11 @@ getReceiver = async (data) => {
 }
 
 emitNotification = async (socket, type, notifData) => {
-    const newNotif = await Notification.findOne({_id: notifData.id}).populate('authorId', 'username').sort({'createdAt': 'desc'})
-    const socketData = await getReceiverSocketId(newNotif);
+    const socketData = await getReceiverSocketId(notifData);
     if(socketData) {
         const payload = {
             type: type,
-            data: newNotif
+            data: notifData
         }
         socket.to(socketData.socketId).emit('notification', payload);
     } else {
