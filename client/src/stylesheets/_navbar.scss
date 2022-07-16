@@ -33,21 +33,27 @@
         color: #ffffff;
         font-size: 16px;
         padding: 4px 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         &.active {
           background-color: #21a8a2;
-          border-bottom: 2px solid #ffffff;
         }
       }
-    }
 
-    .badge {
-      background-color: #FC5C65;
-      font-size: 11px;
-      width: 11px;
-      border-radius: 50%;
-      position: absolute;
-      right: 6px;
-      top: -4px;
+      .nav-icon {
+        width: fit-content;
+        position: relative;
+        .badge {
+          background-color: #FC5C65;
+          font-size: 11px;
+          width: 11px;
+          border-radius: 50%;
+          position: absolute;
+          right: -8px;
+          top: -2px;
+        }
+      }
     }
   }
 }

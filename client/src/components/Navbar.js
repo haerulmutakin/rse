@@ -27,27 +27,27 @@ const Navbar = () => {
             <div className="nav d-flex align-center justify-between mt-4">
                 <div className='nav-left'>
                     <NavLink to='/' activeclassname="active">
-                        <FontAwesomeIcon icon={faHomeAlt} />
+                        <div className='nav-icon'>
+                            <FontAwesomeIcon icon={faHomeAlt} />
+                        </div>
                     </NavLink>
                     <NavLink to='/notifications' activeclassname="active">
-                        <FontAwesomeIcon icon={faBell} />
+                        <div className='nav-icon'>
+                            <FontAwesomeIcon icon={faBell} />
+                            {unseenNotifications.length > 0 && <div className='badge'>{unseenNotifications.length}</div>}
+                        </div>
                     </NavLink>
                     <NavLink to='/message'  activeclassname="active">
-                        <FontAwesomeIcon icon={faEnvelope} />
+                        <div className='nav-icon'>
+                            <FontAwesomeIcon icon={faEnvelope} />
+                            {unseenNotifications.length > 0 && <div className='badge'>{unseenNotifications.length}</div>}
+                        </div>
                     </NavLink>
                     <NavLink to='/new-quote'  activeclassname="active">
-                        <FontAwesomeIcon icon={faPlus} />
+                        <div className='nav-icon'>
+                            <FontAwesomeIcon icon={faPlus} />
+                        </div>
                     </NavLink>
-                    {/* <div className='nav-item'><FontAwesomeIcon icon={faHomeAlt} /></div>
-                    <div className='nav-item' onClick={handleNotif}>
-                        <FontAwesomeIcon icon={faBell} />
-                        {unseenNotifications.length > 0 && <div className='badge'>{unseenNotifications.length}</div>}
-                        
-                    </div>
-                    <div className='nav-item'>
-                        <FontAwesomeIcon icon={faEnvelope} />
-                        <div className='badge'>1</div>
-                    </div> */}
                 </div>
                 
             </div>

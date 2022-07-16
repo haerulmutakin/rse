@@ -1,15 +1,15 @@
 import { Routes, Route } from 'react-router-dom';
 import DefaultLauyout from './layout/Default';
 import DetailLauyout from './layout/Detail';
-import Home from './Home';
-import Comment from './Comment';
-import Like from './Like';
 import ProtectedRoute from '../_helpers/RouteGuard';
 import {SocketProvider} from '../_context/SocketContext';
 import {UserProvider} from '../_context/UserContext';
 import AddQuote from './AddQuote';
 import Notification from './Notification';
 import Message from './Message';
+import Home from './Home';
+import Comment from './Comment';
+import Like from './Like';
 
 const Main = () => {
     return ( 
