@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from "react-router-dom";
+import SocketContext from "../_context/SocketContext";
 import Card from "./Card";
 import Api from "../_api/ApiInstance";
-import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+    const {newQuote} = useContext(SocketContext)
     const navigate = useNavigate();
     const [ quotes, setQuotes ] = useState([])
 
@@ -23,6 +25,12 @@ const Home = () => {
     useEffect(() => {
         fetchQuotes();
     }, [])
+
+    useEffect(() => {
+        if(newQuote) {
+            setQuotes(current => [newQuote, ...current])
+        }
+    }, [newQuote])
 
     return ( 
         <div className="home">

@@ -10,6 +10,7 @@ export const SocketProvider = ({children}) => {
     const [onlineUsers, setOnlineUsers] = useState([])
     const [notifications, setNotifications] = useState([])
     const [userLikes, setUserLikes] = useState([]);
+    const [newQuote, setNewQuote] = useState(null);
     const user = useContext(UserContext)
 
     const socketConnection =  () => {
@@ -72,6 +73,11 @@ export const SocketProvider = ({children}) => {
             socket.on('get:updatednotification', (data) => {
                 setNotifications(data);
             })
+
+            socket.on('get:quote', (data) => {
+                setNewQuote(data);
+            })
+            
             fetchNotification();
             fetchLikes();
         }
@@ -86,7 +92,14 @@ export const SocketProvider = ({children}) => {
     }, [])
 
     return (
-        <SocketContext.Provider value={{socket, onlineUsers, notifications, userLikes}}>
+        <SocketContext.Provider 
+            value={{
+                socket,
+                onlineUsers,
+                notifications,
+                userLikes,
+                newQuote
+            }}>
             {children}
         </SocketContext.Provider>
     )

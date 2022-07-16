@@ -32,6 +32,7 @@ const onlineUserCont = require('./controllers/online-user.controller');
 const likeCont = require('./controllers/like.controller');
 const commentCont = require('./controllers/comment.controller');
 const notifCont = require('./controllers/notification.controller');
+const quoteCont = require('./controllers/quote.controller');
 
 socketIo.on('connection', (socket) => {
 
@@ -57,6 +58,10 @@ socketIo.on('connection', (socket) => {
 
     socket.on('set:seennotif', (data) => {
         notifCont.updateNotificationSeen(socket, data)
+    })
+
+    socket.on('set:quote', (data) => {
+        quoteCont.newQuote(socket, data)
     })
 
     socket.on('disconnect', () => {

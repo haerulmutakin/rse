@@ -3,12 +3,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDoubleRight, faPalette } from '@fortawesome/free-solid-svg-icons';
 import QuoteColorConstant from '../_constant/QuoteColor.constant';
 import UserContext from '../_context/UserContext';
-import Api from "../_api/ApiInstance";
+import SocketContext from '../_context/SocketContext';
 import { useNavigate } from 'react-router-dom';
 
 const AddQuote = () => {
-    const navigate = useNavigate();
+    const {socket} = useContext(SocketContext)
     const user = useContext(UserContext);
+    const navigate = useNavigate();
     const [color, setColor] = useState(0);
     const [quote, setQuote] = useState('');
 
@@ -27,13 +28,8 @@ const AddQuote = () => {
             userId: user._id
         }
 
-        const resp = await Api.post('/quote', payload)
-        const data = resp.data;
-        if(data.status === true) {
-            navigate(-1);
-        } else {
-            console.log('gagal tambah quote')
-        }
+        await socket.emit('set:quote', payload)
+        navigate(-1);
     }
     return ( 
         <div className="add-quote mx-5 mt-5">
