@@ -3,7 +3,6 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 
 const MessageItem = ({item}) => {
-    console.log(item)
     const navigate = useNavigate();
 
     const handleRoomClick = () => {

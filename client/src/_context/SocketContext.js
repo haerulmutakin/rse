@@ -10,6 +10,7 @@ export const SocketProvider = ({children}) => {
     const [onlineUsers, setOnlineUsers] = useState([])
     const [notifications, setNotifications] = useState([])
     const [userLikes, setUserLikes] = useState([]);
+    const [userRooms, setUserRooms] = useState([]);
     const [newQuote, setNewQuote] = useState(null);
     const user = useContext(UserContext)
 
@@ -45,12 +46,33 @@ export const SocketProvider = ({children}) => {
         setUserLikes(map);
     }
 
+    const fetchRooms = async () => {
+        const params = {
+            'userId':  user?._id
+        }
+
+        const resp = await Api.get('/room', {params: params})
+        const data = resp.data;
+        data.forEach(item => {
+            item.receiver = item.roomId.filter(x => x._id !== user._id)[0]
+        })
+        setUserRooms(data);
+        setJoinEvent(data);
+    }
+
+    const setJoinEvent = async (data) => {
+        const roomIds = data.map(item => item._id);
+        socket.emit('set:join', roomIds)
+    }
+
     const initialSocket = () => {
         if(user && socket) {
             socket.emit('set:online', {userId: user._id})
+
             socket.on('get:online', (onlineUsers = []) => {
                 setOnlineUsers(onlineUsers.map(item => item.userId))
             })
+
             socket.on('get:notification', (event) => {
                 const {type, data} = event;
                 if(type === 'new') {
@@ -77,9 +99,14 @@ export const SocketProvider = ({children}) => {
             socket.on('get:quote', (data) => {
                 setNewQuote(data);
             })
+
+            socket.on('new:message', (data) => {
+                console.log('dapat message', data)
+            })
             
             fetchNotification();
             fetchLikes();
+            fetchRooms();
         }
     }
 
@@ -98,7 +125,8 @@ export const SocketProvider = ({children}) => {
                 onlineUsers,
                 notifications,
                 userLikes,
-                newQuote
+                newQuote,
+                userRooms
             }}>
             {children}
         </SocketContext.Provider>

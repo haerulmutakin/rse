@@ -4,8 +4,7 @@ import SocketContext from '../_context/SocketContext';
 const Room = () => {
     const {socket} = useContext(SocketContext)
     const urlparams = useParams();
-    const roomId = urlparams['*'].split('/')[2]
-    console.log(roomId)
+    const roomId = urlparams['*'].split('/')[2];
 
     const Test = async () => {
         socket.emit('test', {to: roomId, body: 'hahai testing yal'})
