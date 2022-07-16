@@ -4,6 +4,7 @@ const quoteController = require('../controllers/quote.controller');
 const commentController = require('../controllers/comment.controller');
 const likeController = require('../controllers/like.controller');
 const notifController = require('../controllers/notification.controller');
+const roomController = require('../controllers/room.controller');
 
 const appRoutes = express.Router();
 
@@ -23,5 +24,8 @@ appRoutes.route('/like')
 appRoutes.route('/notification')
     .get(notifController.getNotificationByReceiver)
 
+appRoutes.route('/room')
+    .get(roomController.findRoom)
+    .post(roomController.addRoom)
 
 module.exports = appRoutes;
