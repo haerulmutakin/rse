@@ -1,8 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBell, faEnvelope, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faBell, faEnvelope, faHomeAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { useContext } from 'react';
 import SocketContext from '../_context/SocketContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
 import UserContext from '../_context/UserContext';
 
 const Navbar = () => {
@@ -17,21 +17,39 @@ const Navbar = () => {
     const unseenNotifications = [...notifications].filter(item => !item.seen);
 
     return ( 
-        <div className="navbar d-flex align-center justify-between">
-            <div className="brand">
-                {user?.username}
+        <div className="navbar">
+            <div className='navbar-top d-flex align-center justify-between mx-8 pt-5'>
+                <div className="brand">
+                    Quote
+                </div>
+                <div className='nav-user'>{user?.firstName}</div>
             </div>
-            <div className="nav d-flex">
-                <div className='nav-item' onClick={handleNotif}>
-                    <FontAwesomeIcon icon={faBell} />
-                    {unseenNotifications.length > 0 && <div className='badge'>{unseenNotifications.length}</div>}
-                    
+            <div className="nav d-flex align-center justify-between mt-4">
+                <div className='nav-left'>
+                    <NavLink to='/' activeclassname="active">
+                        <FontAwesomeIcon icon={faHomeAlt} />
+                    </NavLink>
+                    <NavLink to='/notifications' activeclassname="active">
+                        <FontAwesomeIcon icon={faBell} />
+                    </NavLink>
+                    <NavLink to='/message'  activeclassname="active">
+                        <FontAwesomeIcon icon={faEnvelope} />
+                    </NavLink>
+                    <NavLink to='/new-quote'  activeclassname="active">
+                        <FontAwesomeIcon icon={faPlus} />
+                    </NavLink>
+                    {/* <div className='nav-item'><FontAwesomeIcon icon={faHomeAlt} /></div>
+                    <div className='nav-item' onClick={handleNotif}>
+                        <FontAwesomeIcon icon={faBell} />
+                        {unseenNotifications.length > 0 && <div className='badge'>{unseenNotifications.length}</div>}
+                        
+                    </div>
+                    <div className='nav-item'>
+                        <FontAwesomeIcon icon={faEnvelope} />
+                        <div className='badge'>1</div>
+                    </div> */}
                 </div>
-                <div className='nav-item'>
-                    <FontAwesomeIcon icon={faEnvelope} />
-                    <div className='badge'>1</div>
-                </div>
-                <div className='nav-item'><FontAwesomeIcon icon={faUser} /></div>
+                
             </div>
         </div>
      );

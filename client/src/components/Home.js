@@ -39,9 +39,6 @@ const Home = () => {
                     <Card key={index} quote={item} />
                 ))}
             </div>
-            <div className="new-quote-btn">
-                <button onClick={handleNewQuote}><FontAwesomeIcon icon={faPlus} /></button>
-            </div>
         </div>
      );
 }

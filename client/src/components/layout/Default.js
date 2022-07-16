@@ -1,11 +1,13 @@
 import { Fragment } from "react";
+import { useOutlet } from 'react-router-dom';
 import Navbar from "../Navbar";
 
-const Detail = ({children}) => {
+const Detail = () => {
+    const outlet = useOutlet();
     return (
         <Fragment>
             <Navbar />
-            {children}
+            {outlet}
         </Fragment>
     );
 }

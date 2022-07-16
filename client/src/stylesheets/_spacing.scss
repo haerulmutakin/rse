@@ -22,4 +22,10 @@ $end: 10;
     margin-left: #{$i}px;
     margin-right: #{$i}px;
   }
+  .px-#{$i} {
+    padding: 0 #{$i}px;
+  }
+  .pt-#{$i} {
+    padding-top: #{$i}px;
+  }
 }

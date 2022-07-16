@@ -53,23 +53,6 @@ button {
 
 .home {
   height: 100%;
-  position: relative;
-}
-
-.new-quote-btn {
-  position: absolute;
-  bottom: 50px;
-  right: 10px;
-
-  button {
-    width: 40px;
-    height: 40px;
-    background-color: #10B9B1;
-    border-radius: 50%;
-    font-weight: bold;
-    color: #ffffff;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-  }
 }
 
 .comment {
