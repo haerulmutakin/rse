@@ -44,6 +44,18 @@
       .nav-icon {
         width: fit-content;
         position: relative;
+
+        &.plus {
+          background-color: #ffffff;
+          color: #10B9B1;
+          height: 16px;
+          width: 16px;
+          border-radius: 3px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 14px;
+        }
         .badge {
           background-color: #FC5C65;
           font-size: 11px;

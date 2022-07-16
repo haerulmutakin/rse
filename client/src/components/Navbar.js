@@ -2,17 +2,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell, faEnvelope, faHomeAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { useContext } from 'react';
 import SocketContext from '../_context/SocketContext';
-import { useNavigate, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import UserContext from '../_context/UserContext';
 
 const Navbar = () => {
     const {notifications} = useContext(SocketContext);
     const user = useContext(UserContext);
-    const navigate = useNavigate();
-
-    const handleNotif = () => {
-        navigate('/detail/notifications')
-    }
 
     const unseenNotifications = [...notifications].filter(item => !item.seen);
 
@@ -44,7 +39,7 @@ const Navbar = () => {
                         </div>
                     </NavLink>
                     <NavLink to='/new-quote'  activeclassname="active">
-                        <div className='nav-icon'>
+                        <div className='nav-icon plus'>
                             <FontAwesomeIcon icon={faPlus} />
                         </div>
                     </NavLink>
