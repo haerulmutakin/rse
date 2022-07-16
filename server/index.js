@@ -64,6 +64,17 @@ socketIo.on('connection', (socket) => {
         quoteCont.newQuote(socket, data)
     })
 
+    socket.on('set:join', (data) => {
+        console.log('someone join room', data);
+        socket.join(data)
+    })
+
+    socket.on('test', ({to, body}) => {
+        console.log('someone test');
+        socket.to(to).emit('new:message', body)
+        
+    })
+
     socket.on('disconnect', () => {
         onlineUserCont.removeOnlineUser(socket)
     })
