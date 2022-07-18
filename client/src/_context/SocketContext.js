@@ -12,6 +12,7 @@ export const SocketProvider = ({children}) => {
     const [userLikes, setUserLikes] = useState([]);
     const [userRooms, setUserRooms] = useState([]);
     const [newQuote, setNewQuote] = useState(null);
+    const [newMessage, setNewMessage] = useState(null);
     const user = useContext(UserContext)
 
     const socketConnection =  () => {
@@ -100,8 +101,8 @@ export const SocketProvider = ({children}) => {
                 setNewQuote(data);
             })
 
-            socket.on('new:message', (data) => {
-                console.log('dapat message', data)
+            socket.on('get:newmessage', (data) => {
+                setNewMessage(data);
             })
             
             fetchNotification();
@@ -126,7 +127,8 @@ export const SocketProvider = ({children}) => {
                 notifications,
                 userLikes,
                 newQuote,
-                userRooms
+                userRooms,
+                newMessage
             }}>
             {children}
         </SocketContext.Provider>
