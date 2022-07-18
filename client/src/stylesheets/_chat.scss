@@ -1,3 +1,23 @@
+.chat-room {
+    width: 100%;
+    &:hover {
+      cursor: pointer;
+      background-color: #eeeeee;
+    }
+
+    .user-receiver {
+        font-weight: bold;
+    }
+
+    .last-message {
+        width: 250px;
+        font-size: 11px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
 .chat-container {
     height: calc(100% - 42px);
     display:  flex;
