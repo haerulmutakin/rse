@@ -33,6 +33,7 @@ const likeCont = require('./controllers/like.controller');
 const commentCont = require('./controllers/comment.controller');
 const notifCont = require('./controllers/notification.controller');
 const quoteCont = require('./controllers/quote.controller');
+const messageCont = require('./controllers/message.controller');
 
 socketIo.on('connection', (socket) => {
 
@@ -73,6 +74,10 @@ socketIo.on('connection', (socket) => {
         console.log('someone test');
         socket.to(to).emit('new:message', body)
         
+    })
+
+    socket.on('set:message', (data) => {
+        messageCont.addMessage(socket, data);
     })
 
     socket.on('disconnect', () => {
