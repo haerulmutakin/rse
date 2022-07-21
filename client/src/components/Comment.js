@@ -34,7 +34,8 @@ const Comment = () => {
         }
 
         await socket.emit('set:comment', payload)
-        fetchComments();
+        await fetchComments();
+        setComment('')
     }
 
     useEffect(() => {
@@ -76,7 +77,7 @@ const Comment = () => {
                 ))}
             </div>
             <div className='comment-form d-flex align-center'>
-                <input type="text" onChange={(e) => setComment(e.target.value)} placeholder="Add a comment..."/>
+                <input type="text" value={comment} onChange={(e) => setComment(e.target.value)} placeholder="Add a comment..."/>
                 <button onClick={submitComment} disabled={comment === ''} className='d-flex align-center justify-center'><FontAwesomeIcon icon={faAngleDoubleRight} /></button>
             </div>
         </div>
