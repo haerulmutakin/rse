@@ -1,10 +1,8 @@
 import {useContext } from 'react';
-// import UserContext from '../_context/UserContext';
 import SocketContext from '../_context/SocketContext';
 import MessageItem from './MessageItem';
 
 const Message = () => {
-    // const user = useContext(UserContext);
     const {userRooms} = useContext(SocketContext)
     return ( 
         <div>
