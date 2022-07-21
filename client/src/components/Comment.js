@@ -10,7 +10,7 @@ import { format } from '../_helpers/Date';
 const Comment = () => {
     const urlParams = useParams();
     const user = useContext(UserContext);
-    const {socket, onlineUsers} = useContext(SocketContext);
+    const {socket, onlineUsers, newComment} = useContext(SocketContext);
     const [comments, setComments] = useState([]);
     const [comment, setComment] = useState('');
 
@@ -40,6 +40,15 @@ const Comment = () => {
     useEffect(() => {
         fetchComments();
     }, []);
+
+    useEffect(() => {
+        if(newComment) {
+            const {id} = urlParams;
+            if(newComment.quoteId._id === id) {
+                setComments(old => [newComment, ...old])
+            }
+        }
+    }, [newComment])
 
     const isOnline = (userId) => {
         return onlineUsers.includes(userId)
