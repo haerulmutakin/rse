@@ -35,7 +35,7 @@ const Navbar = () => {
                     <NavLink to='/message'  activeclassname="active">
                         <div className='nav-icon'>
                             <FontAwesomeIcon icon={faEnvelope} />
-                            {unseenNotifications.length > 0 && <div className='badge'>{unseenNotifications.length}</div>}
+                            {/* {unseenNotifications.length > 0 && <div className='badge'>{unseenNotifications.length}</div>} */}
                         </div>
                     </NavLink>
                     <NavLink to='/new-quote'  activeclassname="active">
