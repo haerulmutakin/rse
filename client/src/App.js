@@ -7,32 +7,24 @@ import Main from './components/Main';
 
 const App = () => {
     return ( 
-        <div className="frame">
-            <div className="frame-header"></div>
-            <div className="frame-body">
-                <Router>
-                    <Routes>
-                        <Route 
-                            path='/*' 
-                            element={
-                                <ProtectedRoute>
-                                    <Main />
-                                </ProtectedRoute>
-                            }
-                        />
-                        <Route 
-                            exact 
-                            path='/login' 
-                            element={<Login />}
-                        />
-                    </Routes>
-                </Router>
-            </div>
-            <div className="frame-footer">
-                <div><FontAwesomeIcon icon={faSquare} /> </div>
-                <div><FontAwesomeIcon icon={faCircle} /></div>
-                <div><FontAwesomeIcon icon={faAngleRight} /> </div>
-            </div>
+        <div className="app">
+            <Router>
+                <Routes>
+                    <Route 
+                        path='/*' 
+                        element={
+                            <ProtectedRoute>
+                                <Main />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route 
+                        exact 
+                        path='/login' 
+                        element={<Login />}
+                    />
+                </Routes>
+            </Router>
         </div>
      );
 }
