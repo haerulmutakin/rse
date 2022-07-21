@@ -11,7 +11,6 @@ import Home from './Home';
 import Comment from './Comment';
 import Like from './Like';
 import Room from './Room';
-import CustomLayout from './layout/Custom';
 
 const Main = () => {
     return ( 
@@ -28,9 +27,7 @@ const Main = () => {
                         <Route path='comments/:id' element={<Comment />} />
                         <Route path='likes/:id' element={<Like />} />
                     </Route>
-                    <Route path='/custom' element={<ProtectedRoute><CustomLayout></CustomLayout></ProtectedRoute>}>
-                        <Route path='room/:id' element={<Room />} />
-                    </Route>
+                    <Route path='/room/:id' element={<ProtectedRoute><Room /></ProtectedRoute>} />
                 </Routes>
             </SocketProvider>
         </UserProvider>

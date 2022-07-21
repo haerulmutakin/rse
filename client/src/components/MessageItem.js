@@ -11,7 +11,7 @@ const MessageItem = ({item}) => {
     const [lastMessage, setLastMessage] = useState(null);
 
     const handleRoomClick = () => {
-        navigate(`/custom/room/${item._id}`)
+        navigate(`/room/${item._id}`)
     }
 
     const isOnline = () => {
