@@ -66,7 +66,6 @@ socketIo.on('connection', (socket) => {
     })
 
     socket.on('set:join', (data) => {
-        console.log('someone join room', data);
         socket.join(data)
     })
 
