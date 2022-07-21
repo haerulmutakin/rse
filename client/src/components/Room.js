@@ -1,7 +1,7 @@
 import {useContext, useEffect, useState, Fragment } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleDoubleRight, faUser, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faAngleDoubleRight, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import SocketContext from '../_context/SocketContext';
 import UserContext from '../_context/UserContext';
 import Api from '../_api/ApiInstance';

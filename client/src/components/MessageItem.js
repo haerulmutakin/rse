@@ -6,7 +6,7 @@ import SocketContext from '../_context/SocketContext';
 import Api from "../_api/ApiInstance";
 
 const MessageItem = ({item}) => {
-    const {socket, onlineUsers, newMessage} = useContext(SocketContext);
+    const {onlineUsers, newMessage} = useContext(SocketContext);
     const navigate = useNavigate();
     const [lastMessage, setLastMessage] = useState(null);
 
