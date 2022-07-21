@@ -23,4 +23,10 @@ exports.newComment = async (socket, data) => {
     await comment.save();
     data.type = 'comment';
     await notifCont.addNotification(socket, data);
+    broacCastComment(socket, comment);
+}
+
+broacCastComment = async (socket, data) => {
+    const comment = await Comment.findOne({_id: data._id}).populate('quoteId', '_id').populate('authorId', 'username');
+    socket.broadcast.emit('get:newcomment', comment);
 }
