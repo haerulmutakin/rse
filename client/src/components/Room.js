@@ -27,6 +27,7 @@ const Room = () => {
             user: user?._id,
             body: message
         })
+        setMessage('')
     }
 
     const fetchMessage = async () => {
@@ -81,7 +82,7 @@ const Room = () => {
                     ))}
                 </div>
                 <div className='chat-form d-flex align-center'>
-                    <input onChange={(e) => setMessage(e.target.value)} type="text" placeholder="Message..."/>
+                    <input value={message} onChange={(e) => setMessage(e.target.value)} type="text" placeholder="Message..."/>
                     <button onClick={sendMessage} className='d-flex align-center justify-center'><FontAwesomeIcon icon={faAngleDoubleRight} /></button>
                 </div>
             </div>
