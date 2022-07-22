@@ -14,7 +14,7 @@ const AddQuote = () => {
     const [quote, setQuote] = useState('');
 
     const handlePaletteClick = () => {
-        if(color < QuoteColorConstant.length) {
+        if(color < QuoteColorConstant.length - 1) {
             setColor(color + 1);
         } else {
             setColor(0)

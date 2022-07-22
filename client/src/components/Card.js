@@ -101,7 +101,7 @@ const Card = ({quote}) => {
             <div className='quote-meta-like mx-8 mt-5'>
                 {likes.length > 0 && (
                     <Fragment>
-                        Liked by <b>{likes[likes.length - 1].authorId?.username}</b> 
+                        Liked by <b>{likes[likes.length - 1].authorId?.username} </b> 
                         {likes.length > 1 && (
                             <Fragment>and <b className='more-like-label' onClick={handleMoreLikes}>{likes.length - 1} others</b></Fragment>
                         )} 
