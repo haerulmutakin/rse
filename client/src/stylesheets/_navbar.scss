@@ -1,0 +1,42 @@
+.navbar {
+    background-color: #4b4b4b;
+    color: #ffffff;
+
+    .brand {
+        font-size: 16px;
+        font-weight: bold;
+    }
+}
+
+.nav {
+    a {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 5px 0 3px 0;
+        font-size: 15px;
+
+        &.active, &:hover {
+            background-color: #3d3d3d;
+        }
+    }
+    .nav-icon {
+        color: #ffffff;
+        position: relative;
+        width: 20px;
+
+        .badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background-color: #ff3838;
+            font-size: 10px;
+            height: 14px;
+            width: 14px;
+            text-align: center;
+            border-radius: 50%;
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+        }
+    }
+}

@@ -1,6 +1,10 @@
+import Navbar from "components/common/Navbar";
+
 const Main = () => {
     return (
-        <div>Main</div>
+        <div>
+            <Navbar />
+        </div>
      );
 }
  
