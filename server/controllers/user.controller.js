@@ -5,7 +5,7 @@ exports.findUser = async (req, res) => {
     const qParams = req.query;
     const {username} = qParams;
     
-    const users = await User.find({username: username});
+    const users = await User.findOne({username: username});
     
     res.send(ResponseSchema.list(users));
 }
