@@ -21,13 +21,13 @@ const Navbar = () => {
                 <NavLink to='/notifications' activeclassname="active">
                     <div className='nav-icon'>
                         <FontAwesomeIcon icon={faBell} />
-                        <div className='badge'>6</div>
+                        <div className='badge'></div>
                     </div>
                 </NavLink>
                 <NavLink to='/message'  activeclassname="active">
                     <div className='nav-icon'>
                         <FontAwesomeIcon icon={faEnvelope} />
-                        <div className='badge'>10</div>
+                        <div className='badge'></div>
                     </div>
                 </NavLink>
                 <NavLink to='/new-quote'  activeclassname="active">
