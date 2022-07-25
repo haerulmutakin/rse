@@ -1,6 +1,8 @@
+import { useNavigate } from "react-router-dom";
 import ProfilePlaceholder from "components/common/ProfilePlaceholder";
 
 const Rooms = () => {
+    const navigate = useNavigate();
     const list = [
         {
             name: 'Haerul Mutakin',
@@ -63,11 +65,15 @@ const Rooms = () => {
             time: '09:40'
         },
     ]
+
+    const handleNavigate = () => {
+        navigate('/room')
+    }
     return ( 
         <div className="room-container">
             {
                 list.map((item, index) => (
-                    <div key={index} className="room">
+                    <div key={index} className="room" onClick={handleNavigate}>
                         <ProfilePlaceholder />
                         <div className="room-info">
                             <div className="username">{item.name}</div>

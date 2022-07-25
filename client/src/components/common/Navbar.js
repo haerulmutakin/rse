@@ -24,7 +24,7 @@ const Navbar = () => {
                         <div className='badge'></div>
                     </div>
                 </NavLink>
-                <NavLink to='/message'  activeclassname="active">
+                <NavLink to='/rooms'  activeclassname="active">
                     <div className='nav-icon'>
                         <FontAwesomeIcon icon={faEnvelope} />
                         <div className='badge'></div>

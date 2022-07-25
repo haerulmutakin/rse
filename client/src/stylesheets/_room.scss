@@ -30,3 +30,52 @@
         font-size: 11px;
     }
 }
+
+.message-container {
+    height: 528px;
+    padding: 0 10px;
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    .message-item {
+        display: flex;
+        &.you {
+            justify-content: flex-end;
+            .message-meta {
+                background-color: #d9fdd4;
+            }
+        }
+        .message-meta {
+            padding: 5px;
+            margin: 5px 0;
+            max-width: 250px;
+            border-radius: 5px;
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+            .body {
+                font-size: 11px;
+            }
+            .time {
+                text-align: right;
+                font-size: 10px;
+            }
+        }
+    }
+}
+
+.message-form {
+    width: 100%;
+    border-top: 1px solid #bdbdbd;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    input {
+        width: 100%;
+    }
+    input, button {
+        padding: 7px;
+        background-color: transparent;
+        border: 1px solid transparent
+    }
+}

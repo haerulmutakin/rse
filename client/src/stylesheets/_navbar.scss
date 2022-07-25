@@ -40,3 +40,19 @@
         }
     }
 }
+
+.detail-navbar {
+    background-color: #4b4b4b;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    height: 40px;
+    padding: 0 5px;
+
+    svg {
+        font-size: 15px;
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}
