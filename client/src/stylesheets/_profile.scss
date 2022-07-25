@@ -1,0 +1,22 @@
+.profile {
+    width: 30px;
+    height: 30px;
+    background-color: #10B9B1;
+    border-radius: 50%;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+    .online {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background-color: #ff3838;
+        border: 1px solid #ffffff;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+    }
+}
