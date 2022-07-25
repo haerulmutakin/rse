@@ -13,57 +13,7 @@ const Rooms = () => {
             name: 'Ummu Zaida',
             last: 'Dolor sit amet',
             time: '09:40'
-        },
-        {
-            name: 'Haerul Mutakin',
-            last: 'Lorem ipsum',
-            time: '22:07'
-        },
-        {
-            name: 'Ummu Zaida',
-            last: 'Dolor sit amet',
-            time: '09:40'
-        },
-        {
-            name: 'Haerul Mutakin',
-            last: 'Lorem ipsum',
-            time: '22:07'
-        },
-        {
-            name: 'Ummu Zaida',
-            last: 'Dolor sit amet',
-            time: '09:40'
-        },
-        {
-            name: 'Haerul Mutakin',
-            last: 'Lorem ipsum',
-            time: '22:07'
-        },
-        {
-            name: 'Ummu Zaida',
-            last: 'Dolor sit amet',
-            time: '09:40'
-        },
-        {
-            name: 'Haerul Mutakin',
-            last: 'Lorem ipsum',
-            time: '22:07'
-        },
-        {
-            name: 'Ummu Zaida',
-            last: 'Dolor sit amet',
-            time: '09:40'
-        },
-        {
-            name: 'Haerul Mutakin',
-            last: 'Lorem ipsum',
-            time: '22:07'
-        },
-        {
-            name: 'Ummu Zaida',
-            last: 'Dolor sit amet',
-            time: '09:40'
-        },
+        }
     ]
 
     const handleNavigate = () => {

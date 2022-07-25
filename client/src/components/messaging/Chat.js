@@ -21,7 +21,17 @@ const Chat = () => {
             username: 'ummuzaida',
             body: 'Hi, sehat. kamu gimana?',
             time: '10:21'
-        }
+        },
+        {
+            username: 'ummuzaida',
+            body: 'Yup, theres an icon for that. Browse our icon categories to find just the right icon.',
+            time: '10:25'
+        },
+        {
+            username: 'haerulmutakin',
+            body: '5 unique icon styles, with a brand new sharp family of styles coming soon.',
+            time: '10:19'
+        },
     ];
 
     const handleSubmit = (e) => {
