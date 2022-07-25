@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ProtectedRoute from './_helpers/RouteGuard';
-import Login from './components/Login';
+import Login from './components/common/Login';
 import Main from './components/Main';
 
 const App = () => {

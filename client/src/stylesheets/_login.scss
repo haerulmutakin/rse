@@ -1,0 +1,22 @@
+.login {
+    height: 100%;
+  }
+  
+  .login-form {
+    input, button {
+      width: 100%;
+      margin: 5px 0;
+      padding: 7px 10px;
+      border-radius: 4px;
+    }
+  
+    input {
+      border: 1px solid #eeeeee;
+    }
+  
+    button {
+      background-color: #3ae374;
+      border: 1px solid #3ae374;
+      color: #ffffff;
+    }
+  }
