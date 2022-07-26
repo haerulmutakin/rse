@@ -10,4 +10,7 @@ appRoutes.route('/user')
 appRoutes.route('/room')
     .get(roomController.findUserRooms)
 
+appRoutes.route('/room/:id')
+    .get(roomController.findRoom)
+
 module.exports = appRoutes;

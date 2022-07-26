@@ -2,6 +2,12 @@ const ResponseSchema = require('../_utils/response-body.util');
 const Room = require('../models/room.model');
 const MessageController = require('./message.controller');
 
+findRoom = async (req, res) => {
+    const {params} = req;
+    const data = await Room.findOne({_id: params.id}).populate('roomMembers');
+    res.send(ResponseSchema.list(data))
+}
+
 findUserRooms = async (req, res) => {
     const params = req.query;
     const {user_id} = params;
@@ -35,4 +41,4 @@ getLastMessage = async (roomId) => {
     });
 }
 
-module.exports = {findUserRooms};
+module.exports = {findRoom, findUserRooms};
