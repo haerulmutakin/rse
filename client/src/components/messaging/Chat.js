@@ -1,23 +1,25 @@
 import { Fragment, useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faAngleDoubleRight, faPersonMilitaryRifle } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faAngleDoubleRight } from "@fortawesome/free-solid-svg-icons";
 import ProfilePlaceholder from "components/common/ProfilePlaceholder";
-import { getRoomData } from "_api/Api";
+import { getRoomData, getMessages } from "_api/Api";
 import AppContext from "_context/App.context";
+import { format } from "_helpers/Date";
 
 const Chat = () => {
     const {user} = useContext(AppContext);
     const navigate = useNavigate();
     const params = useParams();
     const {id} = params;
-    const [room, setRoom] = useState(null)
+    const [room, setRoom] = useState(null);
+    const [messages, setMessages] = useState([]);
 
     const hadnleBakck = () => {
         navigate(-1)
     }
 
-    const messages = [
+    const messagess = [
         {
             username: 'haerulmutakin',
             body: 'Hi, apa kabar?',
@@ -51,6 +53,17 @@ const Chat = () => {
         setRoom(data);
     }
 
+    const fetchMessages = async () => {
+        const data = await getMessages(id)
+        console.log('messages', data);
+        setMessages(data);
+    }
+
+    useEffect(() => {
+        fetchRoomData();
+        fetchMessages();
+    }, [])
+
     const getReceiver = () => {
         if(room) {
             const {roomMembers} = room;
@@ -63,9 +76,6 @@ const Chat = () => {
         return ''
     }
 
-    useEffect(() => {
-        fetchRoomData();
-    }, [])
     return (
         <Fragment>
             <div className="detail-navbar">
@@ -79,10 +89,10 @@ const Chat = () => {
             </div>
             <div className="message-container">
                 {messages.map((item, index) => (
-                    <div key={index} className={`message-item ${item.username === 'ummuzaida' ? 'you' : ''}`}>
+                    <div key={index} className={`message-item ${item.sender === user._id ? 'you' : ''}`}>
                         <div className="message-meta">
                             <div className="body">{item.body}</div>
-                            <div className="time">{item.time}</div>
+                            <div className="time">{format(item.createdAt, 'HH:MM')}</div>
                         </div>
                     </div>
                 ))}

@@ -32,13 +32,18 @@ const getRoomData = async (roomId) => {
     return roomData;
 }
 
-
 const getUserRoom = async (userId) => {
     const roomData = await get('/room', {user_id: userId});
     return roomData;
 }
+
+const getMessages = async (roomId) => {
+    const messages = await get(`/message/${roomId}`);
+    return messages;
+}
 export {
     login,
     getRoomData,
-    getUserRoom
+    getUserRoom,
+    getMessages
 };
