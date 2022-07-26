@@ -1,3 +1,4 @@
+const ResponseSchema = require('../_utils/response-body.util');
 const Message = require('../models/message.model');
 
 findLastMessageByRoomId = async (roomId) => {
@@ -5,4 +6,13 @@ findLastMessageByRoomId = async (roomId) => {
     return messageData;
 }
 
-module.exports = {findLastMessageByRoomId};
+findMessageByRoomId = async (req, res) => {
+    const {params} = req;
+    const messages = await Message.find({room: params.id})
+    res.send(ResponseSchema.list(messages));
+}
+
+module.exports = {
+    findLastMessageByRoomId,
+    findMessageByRoomId
+};
