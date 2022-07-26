@@ -14,7 +14,9 @@ findMessageByRoomId = async (req, res) => {
 
 addMessage = async (socket, data) => {
     const messageData = new Message(data);
-    messageData.save();
+    await messageData.save();
+    socket.emit('new', messageData);
+
 }
 
 module.exports = {
