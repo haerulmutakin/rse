@@ -23,7 +23,7 @@ const Room = ({room}) => {
                 <div className="username">{getReceiver()}</div>
                 <div className="message">{room.last_message?.body}</div>
             </div>
-            <div className="time">{format(room.updatedAt, 'D/M/YY')}</div>
+            <div className="time">{format(room.updated_at, 'D/M/YY')}</div>
         </div>
     );
 }

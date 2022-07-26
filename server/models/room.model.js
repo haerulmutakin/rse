@@ -5,9 +5,13 @@ const Room = mongoose.model('Room', new mongoose.Schema({
     roomMembers: [{
         type: mongoose.Schema.Types.Mixed,
         ref: User
-    }]
-}, {
-    timestamps: true
+    }],
+    created_at: {
+        type: Date
+    },
+    updated_at: {
+        type: Date
+    },
 }));
 
 module.exports = Room;
