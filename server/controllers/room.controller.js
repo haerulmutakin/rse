@@ -12,7 +12,7 @@ findUserRooms = async (req, res) => {
     const params = req.query;
     const {user_id} = params;
 
-    const rooms = await Room.find({roomMembers: user_id}).populate('roomMembers');
+    const rooms = await Room.find({roomMembers: user_id}).populate('roomMembers').sort({'updated_at': 'desc'});
 
     const payload = [];
     for (let room of rooms) {
