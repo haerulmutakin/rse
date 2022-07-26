@@ -27,9 +27,18 @@ const login = async (username) => {
     return false;
 }
 
+const getRoomData = async (roomId) => {
+    const roomData = await get(`/room/${roomId}`);
+    return roomData;
+}
+
 
 const getUserRoom = async (userId) => {
     const roomData = await get('/room', {user_id: userId});
     return roomData;
 }
-export {login, getUserRoom};
+export {
+    login,
+    getRoomData,
+    getUserRoom
+};

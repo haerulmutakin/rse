@@ -1,11 +1,17 @@
-import { Fragment } from "react";
-import { useNavigate } from "react-router-dom";
+import { Fragment, useContext, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faAngleDoubleRight } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faAngleDoubleRight, faPersonMilitaryRifle } from "@fortawesome/free-solid-svg-icons";
 import ProfilePlaceholder from "components/common/ProfilePlaceholder";
+import { getRoomData } from "_api/Api";
+import AppContext from "_context/App.context";
 
 const Chat = () => {
+    const {user} = useContext(AppContext);
     const navigate = useNavigate();
+    const params = useParams();
+    const {id} = params;
+    const [room, setRoom] = useState(null)
 
     const hadnleBakck = () => {
         navigate(-1)
@@ -38,6 +44,28 @@ const Chat = () => {
         e.preventDefault();
         console.log('ahai')
     }
+
+    const fetchRoomData = async () => {
+        console.log('get room data')
+        const data = await getRoomData(id);
+        setRoom(data);
+    }
+
+    const getReceiver = () => {
+        if(room) {
+            const {roomMembers} = room;
+            const filtered = roomMembers.filter(item => item._id !== user._id);
+            if(filtered.length === 1) {
+                const receiver = filtered[0];
+                return `${receiver.firstName} ${receiver.lastName}`
+            }
+        }
+        return ''
+    }
+
+    useEffect(() => {
+        fetchRoomData();
+    }, [])
     return (
         <Fragment>
             <div className="detail-navbar">
@@ -47,7 +75,7 @@ const Chat = () => {
                 <div className="ml-5 mr-3">
                     <ProfilePlaceholder />
                 </div>
-                <div>Haerul Mutakin</div>
+                <div>{getReceiver()}</div>
             </div>
             <div className="message-container">
                 {messages.map((item, index) => (

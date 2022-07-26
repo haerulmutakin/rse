@@ -11,7 +11,7 @@ const Main = () => {
                 <Route path='/' element={<DefaultLayout />}>
                     <Route path='/rooms' element={<Rooms />} />
                 </Route>
-                <Route path='/room' element={<Chat />} />
+                <Route path='/room/:id' element={<Chat />} />
             </Routes>
         </AppProvider>
      );

@@ -14,7 +14,7 @@ const Room = ({room}) => {
         return receiverLabel;
     }
     const handleNavigate = () => {
-        navigate('/room')
+        navigate(`/room/${room.id}`)
     }
     return ( 
         <div className="room" onClick={handleNavigate}>
