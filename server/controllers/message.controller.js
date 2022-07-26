@@ -12,7 +12,13 @@ findMessageByRoomId = async (req, res) => {
     res.send(ResponseSchema.list(messages));
 }
 
+addMessage = async (socket, data) => {
+    const messageData = new Message(data);
+    messageData.save();
+}
+
 module.exports = {
     findLastMessageByRoomId,
-    findMessageByRoomId
+    findMessageByRoomId,
+    addMessage
 };

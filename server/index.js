@@ -29,6 +29,7 @@ const socketIo = new Server(httpServer,  {
 });
 
 const onlineUserCont = require('./controllers/online-user.controller');
+const messageCont = require('./controllers/message.controller');
 
 socketIo.on('connection', (socket) => {
 
@@ -38,6 +39,10 @@ socketIo.on('connection', (socket) => {
 
     socket.on('get:online', () => {
         onlineUserCont.emitOnlineUser(socket)
+    })
+
+    socket.on('set:message', (data) => {
+        messageCont.addMessage(socket, data)
     })
 
     socket.on('disconnect', () => {
