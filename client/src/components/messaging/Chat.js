@@ -52,6 +52,15 @@ const Chat = () => {
         fetchMessages();
     }, [])
 
+    useEffect(() => {
+        if(socket) {
+            socket.on('new', (data) => {
+                console.log('new message bro', data)
+                setMessages(old => [...old, data])
+            })
+        }
+    }, [socket])
+
     const getReceiver = () => {
         if(room) {
             const {roomMembers} = room;
@@ -80,7 +89,7 @@ const Chat = () => {
                     <div key={index} className={`message-item ${item.sender === user._id ? 'you' : ''}`}>
                         <div className="message-meta">
                             <div className="body">{item.body}</div>
-                            <div className="time">{format(item.createdAt, 'HH:MM')}</div>
+                            <div className="time">{format(item.createdAt, 'HH:mm')}</div>
                         </div>
                     </div>
                 ))}
