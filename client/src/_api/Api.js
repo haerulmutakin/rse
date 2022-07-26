@@ -13,14 +13,23 @@ Api.interceptors.response.use(
     }
 )
 
+const get = async (endpoint, params) => {
+    const resp = await Api.get(endpoint, {params: params});
+    return resp.result;
+}
+
 const login = async (username) => {
-    const resp = await Api.get('/user', {params: {username}});
-    const {result} = resp;
-    if(result) {
-        localStorage.setItem('session', JSON.stringify(result));
+    const userData = await get('/user', {username});
+    if(userData) {
+        localStorage.setItem('session', JSON.stringify(userData));
         return true;
     }
     return false;
 }
 
-export {login};
+
+const getUserRoom = async (userId) => {
+    const roomData = await get('/room', {user_id: userId});
+    return roomData;
+}
+export {login, getUserRoom};
