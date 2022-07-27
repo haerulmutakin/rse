@@ -15,7 +15,15 @@ export const AppProvider = ({children}) => {
     const fetchUserRoom = async () => {
         const userRooms = await getUserRoom(user._id);
         console.log('fetching userRooms', userRooms);
-        setRooms(userRooms)
+        joiningRooms(userRooms);
+        setRooms(userRooms);
+    }
+
+    const joiningRooms = async (userRooms) => {
+        if(userRooms.length > 0) {
+            const roomIds = userRooms.map(item => item.id);
+            socket.emit('set:join', roomIds);
+        }
     }
 
     useEffect(() => {
