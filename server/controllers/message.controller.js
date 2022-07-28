@@ -18,7 +18,9 @@ addMessage = async (socket, data) => {
     await messageData.save();
 
     await Room.findOneAndUpdate({_id: messageData.room}, {updated_at: Date.now()});
-    socket.emit('new', messageData);
+    // socket.emit('new', messageData);
+    socket.to(messageData.room).emit('new:roommessage', messageData)
+    console.log('emiting')
 
 }
 
