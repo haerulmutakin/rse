@@ -1,8 +1,12 @@
+import { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell, faEnvelope, faHomeAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
+import AppContext from '_context/App.context';
 
 const Navbar = () => {
+
+    const {user} = useContext(AppContext)
 
     return ( 
         <div className="navbar d-flex flex-column">
@@ -10,7 +14,7 @@ const Navbar = () => {
                 <div className="brand">
                     Quote
                 </div>
-                <div>haerulmutakin</div>
+                <div>{user?.firstName}</div>
             </div>
             <div className="nav d-flex align-center justify-between mt-8">
                 <NavLink to='/' activeclassname="active">
