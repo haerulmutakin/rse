@@ -24,7 +24,7 @@ findUserRooms = async (req, res) => {
         payload.push({
             id: room.id,
             receiver: receivers,
-            last_message: lastMessage,
+            messages: lastMessage,
             created_at: room.created_at,
             updated_at: room.updated_at
         })
