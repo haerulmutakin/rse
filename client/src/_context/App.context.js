@@ -6,7 +6,7 @@ import {isAuthenticated} from '_services/Auth.service';
 const AppContext = createContext(null);
 
 export const AppProvider = ({children}) => {
-    const socket = sio.connect('http://localhost:3001');
+    const socket = sio('http://localhost:3001');
     const user = isAuthenticated();
     const [rooms, setRooms] = useState([]);
 
@@ -14,7 +14,6 @@ export const AppProvider = ({children}) => {
 
     const fetchUserRoom = async () => {
         const userRooms = await getUserRoom(user._id);
-        console.log('fetching userRooms', userRooms);
         joiningRooms(userRooms);
         setRooms(userRooms);
     }
@@ -28,10 +27,24 @@ export const AppProvider = ({children}) => {
 
     useEffect(() => {
         if(socket && user) {
-            console.log('socket initialized with user id', user._id);
 
-            socket?.emit('set:online', {user_id: user._id});
             fetchUserRoom();
+            socket?.emit('set:online', {user_id: user._id});
+
+            socket.on('new:roommessage', (data) => {
+                setRooms(old => {
+                    const idx = old.findIndex(item => item.id === data.room);
+                    if(idx >= 0) {
+                        const current = old[idx];
+                        current.messages.push(data);
+                    }
+                    return [...old];
+                })
+            })
+        }
+
+        return () => {
+            socket.off('new:roommessage')
         }
     }, []);
 

@@ -16,12 +16,20 @@ const Room = ({room}) => {
     const handleNavigate = () => {
         navigate(`/room/${room.id}`)
     }
+
+    const lastMessage = () => {
+        const {messages} = room;
+        if(messages.length > 0) {
+            return messages[messages.length - 1]
+        }
+        return null;
+    }
     return ( 
         <div className="room" onClick={handleNavigate}>
             <ProfilePlaceholder />
             <div className="room-info">
                 <div className="username">{getReceiver()}</div>
-                <div className="message">{room.last_message?.body}</div>
+                <div className="message">{lastMessage()?.body}</div>
             </div>
             <div className="time">{format(room.updated_at, 'HH:mm')}</div>
         </div>

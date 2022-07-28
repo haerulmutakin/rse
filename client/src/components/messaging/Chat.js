@@ -2,13 +2,13 @@ import { Fragment, useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faAngleDoubleRight } from "@fortawesome/free-solid-svg-icons";
-import { getRoomData, getMessages } from "_api/Api";
+import { getRoomData } from "_api/Api";
 import { format } from "_helpers/Date";
 import AppContext from "_context/App.context";
 import ProfilePlaceholder from "components/common/ProfilePlaceholder";
 
 const Chat = () => {
-    const {user, socket} = useContext(AppContext);
+    const {user, socket, rooms} = useContext(AppContext);
     const navigate = useNavigate();
     const params = useParams();
     const {id} = params;
@@ -36,30 +36,20 @@ const Chat = () => {
     }
 
     const fetchRoomData = async () => {
-        console.log('get room data')
         const data = await getRoomData(id);
         setRoom(data);
     }
 
-    const fetchMessages = async () => {
-        const data = await getMessages(id)
-        console.log('get messages');
-        setMessages(data);
-    }
-
     useEffect(() => {
         fetchRoomData();
-        fetchMessages();
     }, [])
 
     useEffect(() => {
-        if(socket) {
-            socket.on('new', (data) => {
-                console.log('new message bro', data)
-                setMessages(old => [...old, data])
-            })
+        const currentRoom = rooms.find(item => item.id === id);
+        if(currentRoom) {
+            setMessages(currentRoom.messages)
         }
-    }, [socket])
+    }, [rooms])
 
     const getReceiver = () => {
         if(room) {
@@ -86,7 +76,7 @@ const Chat = () => {
             </div>
             <div className="message-container">
                 {messages.map((item, index) => (
-                    <div key={index} className={`message-item ${item.sender === user._id ? 'you' : ''}`}>
+                    <div key={index} className={`message-item ${item.sender._id === user._id ? 'you' : ''}`}>
                         <div className="message-meta">
                             <div className="body">{item.body}</div>
                             <div className="time">{format(item.createdAt, 'HH:mm')}</div>
