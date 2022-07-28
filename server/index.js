@@ -42,7 +42,6 @@ socketIo.on('connection', (socket) => {
     })
 
     socket.on('set:join', (rooms) => {
-        console.log('someone wants to join rooms', rooms);
         socket.join(rooms);
     })
 
