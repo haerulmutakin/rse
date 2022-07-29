@@ -25,8 +25,33 @@ addMessage = async (socket, data) => {
 
 }
 
+setSeen = async (socket, data) => {
+    await Message.updateMany({_id: {$in: data.messageIds}}, {$push: {seen_by: data.user_id}});
+    emitRoom(socket, data);
+}
+
+emitRoom = async (socket, data) => {
+    const room = await Room.findOne({_id: data.room_id}).populate('roomMembers').sort({'updated_at': 'desc'});
+    const messages = await findLastMessageByRoomId(data.room_id);
+
+    const {roomMembers} = room;
+    const receivers = roomMembers.filter(item => item.id !== data.user_id);
+
+    const payload = {
+        id: room.id,
+        receiver: receivers,
+        messages: messages,
+        created_at: room.created_at,
+        updated_at: room.updated_at
+    }
+    console.log('payload', payload)
+    socket.emit('get:roomupdate', payload)
+
+}
+
 module.exports = {
     findLastMessageByRoomId,
     findMessageByRoomId,
-    addMessage
+    addMessage,
+    setSeen
 };
