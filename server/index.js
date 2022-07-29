@@ -49,6 +49,10 @@ socketIo.on('connection', (socket) => {
         messageCont.addMessage(socket, data)
     })
 
+    socket.on('set:seen', (data) => {
+        messageCont.setSeen(socket, data)
+    })
+
     socket.on('disconnect', () => {
         onlineUserCont.removeOnlineUser(socket)
     })
