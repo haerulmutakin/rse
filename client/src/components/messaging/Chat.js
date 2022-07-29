@@ -28,6 +28,7 @@ const Chat = () => {
             const payload = {
                 room: room._id,
                 sender: user._id,
+                seen_by: [user._id],
                 body: message
             }
             socket.emit('set:message', payload)
@@ -47,7 +48,13 @@ const Chat = () => {
     useEffect(() => {
         const currentRoom = rooms.find(item => item.id === id);
         if(currentRoom) {
-            setMessages(currentRoom.messages)
+            setMessages(currentRoom.messages);
+
+            const {unseen_messages} = currentRoom;
+            if(unseen_messages.length > 0) {
+                console.log('set all to seen', unseen_messages.length)
+                socket.emit('set:seen', {room_id: currentRoom.id, messageIds: unseen_messages.map(x => x._id) , user_id: user._id})
+            }
         }
     }, [rooms])
 
