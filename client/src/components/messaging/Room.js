@@ -23,6 +23,7 @@ const Room = ({room}) => {
                 <div className="username">{getReceiver()}</div>
                 <div className="message">{room.last_message?.body}</div>
             </div>
+            <div className="unseen">{room.unseen_count}</div>
             <div className="time">{format(room.last_message.createdAt, 'HH:mm')}</div>
         </div>
     );

@@ -14,6 +14,7 @@ export const AppProvider = ({children}) => {
         const userRooms = await getUserRoom(user._id);
         joiningRooms(userRooms);
         const managedRooms = manageRooms(userRooms)
+        console.log(managedRooms)
         setRooms(managedRooms);
     }
 
@@ -21,7 +22,9 @@ export const AppProvider = ({children}) => {
         roomData.forEach(item => {
             const {messages} = item;
             const lastMessage = messages[messages.length - 1];
+            const unseen = messages.filter(x => x.seen === false);
             item.last_message = lastMessage;
+            item.unseen_count = unseen.length;
         });
         return roomData.sort(sortRoom);
 

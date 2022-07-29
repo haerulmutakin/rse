@@ -17,6 +17,24 @@
         top: 5px;
         right: 5px;
     }
+    .unseen {
+        position: absolute;
+        bottom: 8px;
+        right: 5px;
+        min-height: 20px;
+        min-width: 20px;
+        width: fit-content;
+        height: fit-content;
+        padding: 3px;
+        background-color: red;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #ffffff;
+        font-size: 9px;
+        border-radius: 50%;
+        font-weight: bold;
+    }
     &:hover {
         background-color: #eeeeee;
     }
