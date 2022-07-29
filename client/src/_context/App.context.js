@@ -10,12 +10,25 @@ export const AppProvider = ({children}) => {
     const user = isAuthenticated();
     const [rooms, setRooms] = useState([]);
 
-
-
     const fetchUserRoom = async () => {
         const userRooms = await getUserRoom(user._id);
         joiningRooms(userRooms);
-        setRooms(userRooms);
+        const managedRooms = manageRooms(userRooms)
+        setRooms(managedRooms);
+    }
+
+    const manageRooms = (roomData = []) => {
+        roomData.forEach(item => {
+            const {messages} = item;
+            const lastMessage = messages[messages.length - 1];
+            item.last_message = lastMessage;
+        });
+        return roomData.sort(sortRoom);
+
+    }
+
+    const sortRoom = (a, b) => {
+        return (a.last_message.createdAt < b.last_message.createdAt) ? 1 : -1;
     }
 
     const joiningRooms = async (userRooms) => {
@@ -38,7 +51,8 @@ export const AppProvider = ({children}) => {
                         const current = old[idx];
                         current.messages.push(data);
                     }
-                    return [...old];
+                    const managedRooms = manageRooms(old);
+                    return [...managedRooms];
                 })
             })
         }
