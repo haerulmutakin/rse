@@ -11,6 +11,10 @@ const Message = mongoose.model('Message', new mongoose.Schema({
         type: mongoose.Schema.Types.Mixed,
         ref: User
     },
+    seen: {
+        type: Boolean,
+        default: false
+    },
     body: {
         type: String
     }
