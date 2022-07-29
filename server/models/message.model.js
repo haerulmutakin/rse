@@ -11,10 +11,10 @@ const Message = mongoose.model('Message', new mongoose.Schema({
         type: mongoose.Schema.Types.Mixed,
         ref: User
     },
-    seen: {
-        type: Boolean,
-        default: false
-    },
+    seen_by: [{
+        type: mongoose.Schema.Types.Mixed,
+        ref: User
+    }],
     body: {
         type: String
     }
