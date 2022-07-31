@@ -8,7 +8,7 @@ import AppContext from "_context/App.context";
 import ProfilePlaceholder from "components/common/ProfilePlaceholder";
 
 const Chat = () => {
-    const {user, socket, rooms} = useContext(AppContext);
+    const {user, socket, rooms, setSeen} = useContext(AppContext);
     const navigate = useNavigate();
     const params = useParams();
     const {id} = params;
@@ -52,8 +52,7 @@ const Chat = () => {
 
             const {unseen_messages} = currentRoom;
             if(unseen_messages.length > 0) {
-                console.log('set all to seen', unseen_messages.length)
-                socket.emit('set:seen', {room_id: currentRoom.id, messageIds: unseen_messages.map(x => x._id) , user_id: user._id})
+                setSeen({room_id: currentRoom.id, messageIds: unseen_messages.map(x => x._id) , user_id: user._id});
             }
         }
     }, [rooms])

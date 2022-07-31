@@ -44,8 +44,7 @@ emitRoom = async (socket, data) => {
         created_at: room.created_at,
         updated_at: room.updated_at
     }
-    console.log('payload', payload)
-    socket.emit('get:roomupdate', payload)
+    socket.to(payload.id).emit('get:roomupdate', payload)
 
 }
 

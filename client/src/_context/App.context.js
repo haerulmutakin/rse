@@ -14,24 +14,27 @@ export const AppProvider = ({children}) => {
         const userRooms = await getUserRoom(user._id);
         joiningRooms(userRooms);
         const managedRooms = manageRooms(userRooms)
-        console.log(managedRooms)
         setRooms(managedRooms);
+    }
+
+    const setSeen = (data) => {
+        socket.emit('set:seen', data)
     }
 
     const manageRooms = (roomData = []) => {
         roomData.forEach(item => {
             const {messages} = item;
             const lastMessage = messages[messages.length - 1];
-            const unseen = messages.filter(x => x.seen === false);
+            const unseen = messages.filter(x => !x.seen_by.includes(user._id));
             item.last_message = lastMessage;
-            item.unseen_count = unseen.length;
+            item.unseen_messages = unseen;
         });
         return roomData.sort(sortRoom);
 
     }
 
     const sortRoom = (a, b) => {
-        return (a.last_message.createdAt < b.last_message.createdAt) ? 1 : -1;
+        return (a.last_message?.createdAt < b.last_message?.createdAt) ? 1 : -1;
     }
 
     const joiningRooms = async (userRooms) => {
@@ -43,7 +46,6 @@ export const AppProvider = ({children}) => {
 
     useEffect(() => {
         if(socket && user) {
-
             fetchUserRoom();
             socket?.emit('set:online', {user_id: user._id});
 
@@ -58,10 +60,24 @@ export const AppProvider = ({children}) => {
                     return [...managedRooms];
                 })
             })
+
+            socket.on('get:roomupdate', (data) => {
+                console.log('roomUpdate y', data)
+
+                setRooms(old => {
+                    const idx = old.findIndex(item => item.id === data.id);
+                    if(idx >= 0) {
+                        old[idx] = data;
+                    }
+                    const managedRooms = manageRooms(old);
+                    return [...managedRooms];
+                })
+            })
         }
 
         return () => {
             socket.off('new:roommessage')
+            socket.off('get:roomupdate')
         }
     }, []);
 
@@ -70,7 +86,8 @@ export const AppProvider = ({children}) => {
             value={{
                 user,
                 socket,
-                rooms
+                rooms,
+                setSeen
             }}>
             {children}
         </AppContext.Provider>

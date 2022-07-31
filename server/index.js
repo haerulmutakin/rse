@@ -32,7 +32,6 @@ const onlineUserCont = require('./controllers/online-user.controller');
 const messageCont = require('./controllers/message.controller');
 
 socketIo.on('connection', (socket) => {
-
     socket.on('set:online', (data) => {
         onlineUserCont.addOnlineUser(socket, data)
     })
