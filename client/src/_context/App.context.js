@@ -62,8 +62,6 @@ export const AppProvider = ({children}) => {
             })
 
             socket.on('get:roomupdate', (data) => {
-                console.log('roomUpdate y', data)
-
                 setRooms(old => {
                     const idx = old.findIndex(item => item.id === data.id);
                     if(idx >= 0) {

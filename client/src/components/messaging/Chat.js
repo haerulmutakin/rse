@@ -1,4 +1,4 @@
-import { Fragment, useContext, useEffect, useState } from "react";
+import { Fragment, useContext, useEffect, useState, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faAngleDoubleRight } from "@fortawesome/free-solid-svg-icons";
@@ -12,6 +12,7 @@ const Chat = () => {
     const navigate = useNavigate();
     const params = useParams();
     const {id} = params;
+    const bottomRef = useRef(null);
 
     const [room, setRoom] = useState(null);
     const [messages, setMessages] = useState([]);
@@ -57,6 +58,10 @@ const Chat = () => {
         }
     }, [rooms])
 
+    useEffect(() => {
+        bottomRef.current?.scrollIntoView();
+    })
+
     const getReceiver = () => {
         if(room) {
             const {roomMembers} = room;
@@ -89,6 +94,7 @@ const Chat = () => {
                         </div>
                     </div>
                 ))}
+                <div ref={bottomRef}></div>
             </div>
             <form onSubmit={handleSubmit} className="message-form">
                 <input value={message} onChange={(e) => setMessage(e.target.value)} type="text" placeholder="Message" />
