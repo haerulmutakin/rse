@@ -8,6 +8,9 @@ const appRoutes = express.Router();
 appRoutes.route('/user')
     .get(userController.findUser)
 
+appRoutes.route('/friends')
+    .get(userController.findUsersButMe)
+
 appRoutes.route('/room')
     .get(roomController.findUserRooms)
 
