@@ -27,6 +27,11 @@ const login = async (username) => {
     return false;
 }
 
+const getFriends = async (params) => {
+    const friends =  await get('/friends', params);
+    return friends
+}
+
 const getRoomData = async (roomId) => {
     const roomData = await get(`/room/${roomId}`);
     return roomData;
@@ -45,5 +50,6 @@ export {
     login,
     getRoomData,
     getUserRoom,
-    getMessages
+    getMessages,
+    getFriends
 };
