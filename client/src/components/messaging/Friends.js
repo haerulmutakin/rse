@@ -39,9 +39,9 @@ const Friends = () => {
             </div>
             <div>
                 {friends.map(item => (
-                    <div key={item._id} className="friend-item">
+                    <div key={item.id} className="friend-item">
                         <ProfilePlaceholder />
-                        <div className="ml-5"><b>{`${item.firstName} ${item.lastName}`}</b></div>
+                        <div className="ml-5"><b>{item.name}</b></div>
                     </div>
                 ))}
             </div>
