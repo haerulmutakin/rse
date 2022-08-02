@@ -19,12 +19,12 @@ findUserRooms = async (req, res) => {
         const {roomMembers} = room;
         const receivers = roomMembers.filter(item => item.id !== user_id);
 
-        const lastMessage = await getLastMessage(room.id);
+        const messages = await getMessages(room.id);
         
         payload.push({
             id: room.id,
             receiver: receivers,
-            messages: lastMessage,
+            messages: messages,
             created_at: room.created_at,
             updated_at: room.updated_at
         })
@@ -34,7 +34,7 @@ findUserRooms = async (req, res) => {
 
 }
 
-getLastMessage = async (roomId) => {
+getMessages = async (roomId) => {
     return new Promise(async (resolve) => {
         const messageData =  await MessageController.findLastMessageByRoomId(roomId);
         resolve(messageData)
