@@ -26,7 +26,7 @@ const Room = ({room}) => {
             {room.unseen_messages.length > 0 && (
                 <div className="unseen">{room.unseen_messages.length}</div>
             )}
-            <div className="time">{format(room.last_message?.createdAt, 'HH:mm')}</div>
+            <div className="time">{format(room.last_message?.createdAt)}</div>
         </div>
     );
 }
