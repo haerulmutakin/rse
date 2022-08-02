@@ -18,8 +18,8 @@ const Chat = () => {
     const [messages, setMessages] = useState([]);
     const [message, setMessage] = useState('');
 
-    const hadnleBakck = () => {
-        navigate(-1)
+    const handleBack = () => {
+        navigate('/rooms')
     }
 
     const handleSubmit = (e) => {
@@ -77,7 +77,7 @@ const Chat = () => {
     return (
         <Fragment>
             <div className="detail-navbar">
-                <div onClick={hadnleBakck}>
+                <div onClick={handleBack}>
                     <FontAwesomeIcon icon={faArrowLeft} />
                 </div>
                 <div className="ml-5 mr-3">
