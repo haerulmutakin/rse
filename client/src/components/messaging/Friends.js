@@ -11,8 +11,16 @@ const Friends = () => {
     const navigate = useNavigate();
     const [friends, setFriends] = useState([]);
 
-    const hadnleBakck = () => {
+    const handleBack = () => {
         navigate(-1)
+    }
+
+    const handleFriendClick = (item) => {
+        if(item.room_id !== 'none') {
+            navigate(`/room/${item.room_id}`)
+        } else {
+            console.log('creat room')
+        }
     }
 
     const getFriendList = async () => {
@@ -30,7 +38,7 @@ const Friends = () => {
     return ( 
         <Fragment>
             <div className="detail-navbar">
-                <div onClick={hadnleBakck}>
+                <div onClick={handleBack}>
                     <FontAwesomeIcon icon={faArrowLeft} />
                 </div>
                 <div className="ml-5 mr-3">
@@ -39,7 +47,7 @@ const Friends = () => {
             </div>
             <div>
                 {friends.map(item => (
-                    <div key={item.id} className="friend-item">
+                    <div key={item.id} className="friend-item" onClick={() => handleFriendClick(item)}>
                         <ProfilePlaceholder />
                         <div className="ml-5"><b>{item.name}</b></div>
                     </div>
