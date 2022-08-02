@@ -14,6 +14,9 @@ appRoutes.route('/friends')
 appRoutes.route('/room')
     .get(roomController.findUserRooms)
 
+appRoutes.route('/room')
+    .post(roomController.addRoom)
+
 appRoutes.route('/room/:id')
     .get(roomController.findRoom)
 

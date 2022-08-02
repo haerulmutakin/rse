@@ -41,4 +41,17 @@ getLastMessage = async (roomId) => {
     });
 }
 
-module.exports = {findRoom, findUserRooms};
+addRoom = async (req, res) => {
+    const data = {
+        roomMembers: req.body.roomMembers,
+        created_at: Date.now(),
+        updated_at: Date.now(),
+    }
+
+    const roomData = new Room(data);
+    await roomData.save();
+
+    res.send(ResponseSchema.list(roomData));
+}
+
+module.exports = {findRoom, findUserRooms, addRoom};
