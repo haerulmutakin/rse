@@ -20,14 +20,15 @@ findUserRooms = async (req, res) => {
         const receivers = roomMembers.filter(item => item.id !== user_id);
 
         const messages = await getMessages(room.id);
-        
-        payload.push({
-            id: room.id,
-            receiver: receivers,
-            messages: messages,
-            created_at: room.created_at,
-            updated_at: room.updated_at
-        })
+        if(messages.length > 0) {
+            payload.push({
+                id: room.id,
+                receiver: receivers,
+                messages: messages,
+                created_at: room.created_at,
+                updated_at: room.updated_at
+            })
+        }
     }
 
     res.send(ResponseSchema.list(payload))
