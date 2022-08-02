@@ -18,6 +18,11 @@ const get = async (endpoint, params) => {
     return resp.result;
 }
 
+const post = async (endpoint, data) => {
+    const resp = await Api.post(endpoint, data);
+    return resp.result;
+}
+
 const login = async (username) => {
     const userData = await get('/user', {username});
     if(userData) {
@@ -46,10 +51,16 @@ const getMessages = async (roomId) => {
     const messages = await get(`/message/${roomId}`);
     return messages;
 }
+
+const createRoom = async (body) => {
+    const roomData = await post('/room', body);
+    return roomData;
+}
 export {
     login,
     getRoomData,
     getUserRoom,
     getMessages,
-    getFriends
+    getFriends,
+    createRoom
 };
