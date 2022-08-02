@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import AppContext from "_context/App.context";
-import { getFriends } from "_api/Api";
+import { getFriends, createRoom } from "_api/Api";
 import ProfilePlaceholder from "components/common/ProfilePlaceholder";
 
 const Friends = () => {
@@ -15,11 +15,13 @@ const Friends = () => {
         navigate(-1)
     }
 
-    const handleFriendClick = (item) => {
+    const handleFriendClick = async (item) => {
         if(item.room_id !== 'none') {
             navigate(`/room/${item.room_id}`)
         } else {
-            console.log('creat room')
+            const payload = {roomMembers: [user._id, item.id]};
+            const roomData = await createRoom(payload);
+            navigate(`/room/${roomData._id}`);
         }
     }
 
