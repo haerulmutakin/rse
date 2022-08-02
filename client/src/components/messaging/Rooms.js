@@ -17,7 +17,7 @@ const Rooms = () => {
         <div className="room-container">
             {
                 rooms.map((item, index) => (
-                    <Room room={item} key={index} />
+                    item.last_message && <Room room={item} key={index} />
                 ))
             }
             <div className="new-room-fab" onClick={handleNewRoom}>
