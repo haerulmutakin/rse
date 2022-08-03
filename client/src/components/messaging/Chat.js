@@ -1,7 +1,7 @@
 import { Fragment, useContext, useEffect, useState, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faAngleDoubleRight } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faAngleDoubleRight, faCheck } from "@fortawesome/free-solid-svg-icons";
 import { getRoomData } from "_api/Api";
 import { format } from "_helpers/Date";
 import AppContext from "_context/App.context";
@@ -17,6 +17,7 @@ const Chat = () => {
     const [room, setRoom] = useState(null);
     const [messages, setMessages] = useState([]);
     const [message, setMessage] = useState('');
+    const [receiver, setReceiver] = useState(null);
 
     const handleBack = () => {
         navigate('/rooms')
@@ -39,7 +40,16 @@ const Chat = () => {
 
     const fetchRoomData = async () => {
         const data = await getRoomData(id);
+        manageReceiver(data);
         setRoom(data);
+    }
+
+    const manageReceiver = (room) => {
+        const {roomMembers} = room;
+        const recs = roomMembers.find(item => item._id !== user._id);
+        if(recs) {
+            setReceiver(recs)
+        }
     }
 
     useEffect(() => {
@@ -62,16 +72,8 @@ const Chat = () => {
         bottomRef.current?.scrollIntoView();
     })
 
-    const getReceiver = () => {
-        if(room) {
-            const {roomMembers} = room;
-            const filtered = roomMembers.filter(item => item._id !== user._id);
-            if(filtered.length === 1) {
-                const receiver = filtered[0];
-                return `${receiver.firstName} ${receiver.lastName}`
-            }
-        }
-        return ''
+    const isMessageRead = (item) => {
+        return item.seen_by.includes(receiver?._id);
     }
 
     return (
@@ -83,14 +85,18 @@ const Chat = () => {
                 <div className="ml-5 mr-3">
                     <ProfilePlaceholder />
                 </div>
-                <div>{getReceiver()}</div>
+                {receiver && <div>{`${receiver.firstName} ${receiver.lastName}`}</div>}
+                
             </div>
             <div className="message-container">
                 {messages.map((item, index) => (
                     <div key={index} className={`message-item ${item.sender._id === user._id ? 'you' : ''}`}>
                         <div className="message-meta">
                             <div className="body">{item.body}</div>
-                            <div className="time">{format(item.createdAt)}</div>
+                            <div className="time">
+                                {format(item.createdAt)}
+                                {item.sender._id === user._id && <span className={`ml-4 ${isMessageRead(item) ? 'read' : ''}`}><FontAwesomeIcon icon={faCheck} /></span>}
+                            </div>
                         </div>
                     </div>
                 ))}
