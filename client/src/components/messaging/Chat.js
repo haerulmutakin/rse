@@ -90,7 +90,7 @@ const Chat = () => {
                     <div key={index} className={`message-item ${item.sender._id === user._id ? 'you' : ''}`}>
                         <div className="message-meta">
                             <div className="body">{item.body}</div>
-                            <div className="time">{format(item.createdAt, 'HH:mm')}</div>
+                            <div className="time">{format(item.createdAt)}</div>
                         </div>
                     </div>
                 ))}

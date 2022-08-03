@@ -15,7 +15,7 @@ const format = (dateStr, format = 'DD-MM-YYYY') => {
     } else if(date === yesterday) {
         return 'Yesterday'
     } else {
-        return dayjs(new Date(dateStr)).format('D/M/YYYY')
+        return dayjs(new Date(dateStr)).format('D/M/YY')
     }
 }
 
